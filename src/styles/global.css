@@ -33,6 +33,13 @@ a {
   min-height: var(--control-height);
 }
 
+a {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
 :focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
