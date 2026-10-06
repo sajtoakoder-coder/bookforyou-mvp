@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import HeroObject from '../components/HeroObject'
 import EditorialSection from '../components/EditorialSection'
 import ObjectDetails from '../components/ObjectDetails'
+import AvailabilityNotice from '../components/AvailabilityNotice'
 import { getEditionBySlug } from '../data/editions'
 import styles from './HomePage.module.css'
 
@@ -14,28 +15,40 @@ export default function HomePage(): JSX.Element {
       <section className={styles.hero} aria-labelledby="home-heading">
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Первый выпуск · {edition.number}</p>
-            <h1 id="home-heading"><span className={styles.brand}>BOOKFORYOU</span>Эта книга для того, кто…</h1>
-            <p className={styles.heroLine}>…ждёт историю, которая окажется рядом в нужный момент.</p>
-            <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>О выпуске {edition.number} <span aria-hidden="true">↗</span></Link>
+            <p className={styles.kicker}>Книга как личный коллекционный объект</p>
+            <h1 id="home-heading" aria-label="BOOK FOR YOU"><span>BOOK</span><span>FOR</span><span>YOU</span></h1>
+            <span className={styles.editionNumber}>{edition.number}</span>
           </div>
           <div className={styles.heroVisual}>
-            <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority ambient />
+            <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority />
+          </div>
+          <div className={styles.heroFooter}>
+            <p className={styles.heroLine}>Эта книга для того, кто…<br />…ждёт историю, которая окажется рядом в нужный момент.</p>
+            <div className={styles.releasePlaque}>
+              <p>ВЫПУСК {edition.number} — {edition.price}</p>
+              <AvailabilityNotice />
+            </div>
+            <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>О выпуске {edition.number} <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        <p className={styles.heroFootnote}>Книга как личный коллекционный объект</p>
       </section>
+
+      <section className={styles.launchBand} aria-label="Первый выпуск">
+        <p>Первый выпуск / {edition.number}</p>
+        <p>История начинается с человека.</p>
+        <span aria-hidden="true">BOOKFORYOU</span>
+      </section>
+
+      <ObjectDetails edition={edition} />
+
+      <EditorialSection id="gift" eyebrow="Для близкого человека" title="BOOKFORYOU для другого" dark>
+        <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
+        <p>Книга, запечатанный конверт и координаты складываются в личное послание — без готовых объяснений за вас.</p>
+      </EditorialSection>
 
       <EditorialSection eyebrow="Редакционный выбор" title="Почему эта книга здесь">
         <p>Каждый выпуск BOOKFORYOU начинается с вопроса о человеке, для которого может оказаться важна история.</p>
         <p>{edition.curatorText}</p>
-      </EditorialSection>
-
-      <ObjectDetails edition={edition} />
-
-      <EditorialSection eyebrow="Для близкого человека" title="BOOKFORYOU для другого" dark>
-        <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
-        <p>Книга, запечатанный конверт и координаты складываются в личное послание — без готовых объяснений за вас.</p>
       </EditorialSection>
 
       <section className={styles.curator} aria-labelledby="curator-heading">

@@ -31,12 +31,12 @@ describe('edition data', () => {
 describe('direct routes', () => {
   it('renders the home page', () => {
     renderAtPath('/')
-    expect(screen.getByRole('heading', { level: 1, name: /bookforyou/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'BOOK FOR YOU' })).toBeInTheDocument()
   })
 
   it('renders the current edition for a direct URL', () => {
     renderAtPath('/edition/001')
-    expect(screen.getByRole('heading', { name: /bookforyou №001/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeInTheDocument()
     expect(screen.getByText('4 900 ₽')).toBeInTheDocument()
   })
 
