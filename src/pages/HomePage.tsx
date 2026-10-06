@@ -39,7 +39,7 @@ export default function HomePage(): JSX.Element {
       </EditorialSection>
 
       <section className={styles.curator} aria-labelledby="curator-heading">
-        <div className={styles.curatorInner}>
+        <div className={styles.curatorInner} data-reveal="">
           <p className={styles.curatorEyebrow}>Куратор</p>
           <div>
             <h2 id="curator-heading">Кто выбирает книги</h2>

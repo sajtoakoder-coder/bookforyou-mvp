@@ -59,4 +59,23 @@ test('mobile menu navigation remains reachable', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'Выпуск №001' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.getByRole('heading', { level: 1, name: 'BOOKFORYOU №001' })).toBeFocused()
+})
+
+test('mobile collection card opens the edition at its focused heading', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.goto('/collection')
+  const link = page.getByRole('link', { name: 'Узнать о выпуске' })
+  await link.scrollIntoViewIfNeeded()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+  await link.click()
+  await expect(page).toHaveURL(/\/edition\/001$/)
+  const heading = page.getByRole('heading', { level: 1, name: 'BOOKFORYOU №001' })
+  await expect(heading).toBeFocused()
+  await expect(heading).toBeInViewport()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+
+  await page.goBack()
+  await expect(page.getByRole('heading', { level: 1, name: 'Коллекция' })).toBeFocused()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
 })

@@ -43,6 +43,7 @@ describe('Header', () => {
     expect(destination).toHaveFocus()
     fireEvent.click(destination)
     expect(button).toHaveAttribute('aria-expanded', 'false')
-    expect(button).toHaveFocus()
+    // The route shell transfers focus to the new page heading.
+    expect(button).not.toHaveFocus()
   })
 })

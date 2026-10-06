@@ -4,6 +4,7 @@ import { getEditionBySlug } from './data/editions'
 import { legalPages } from './data/legalPages'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import RouteEffects from './components/RouteEffects'
 import HomePage from './pages/HomePage'
 import EditionPage from './pages/EditionPage'
 import CollectionPage from './pages/CollectionPage'
@@ -34,6 +35,7 @@ function LegalRoute(): JSX.Element {
 export default function App(): JSX.Element {
   return (
     <BrowserRouter>
+      <RouteEffects />
       <Header />
       <main id="main-content">
         <Routes>

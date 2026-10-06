@@ -9,11 +9,26 @@ for (const width of widths) {
     for (const path of paths) {
       await page.goto(path)
       if (path === '/') {
+        await page.evaluate(() => document.fonts.ready)
         for (const image of await page.locator('main img').all()) {
           await image.evaluate((element) => element.scrollIntoView({ behavior: 'instant', block: 'center' }))
-          await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBeGreaterThan(0)
+          await expect.poll(() => image.evaluate(async (element: HTMLImageElement) => {
+            // decode() also settles for cached images and rejects for broken ones.
+            // Retry allows the component's error handler to swap in its fallback.
+            try {
+              await element.decode()
+              return element.complete && element.naturalWidth > 0
+            } catch {
+              return false
+            }
+          })).toBe(true)
         }
-        await page.screenshot({ path: `test-results/qa-home-${width}.png`, fullPage: true })
+        for (const block of await page.locator('[data-reveal]').all()) {
+          await block.scrollIntoViewIfNeeded()
+          await expect(block).toHaveAttribute('data-reveal', 'visible')
+        }
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+        await page.screenshot({ path: `test-results/qa-home-${width}.png`, fullPage: true, animations: 'disabled' })
       }
       const metrics = await page.evaluate(() => ({
         viewport: document.documentElement.clientWidth,
@@ -32,6 +47,28 @@ test('reduced motion stops the ambient hero animation', async ({ page }) => {
   const hero = page.getByRole('img', { name: /Комплект BOOKFORYOU/ }).first()
   await expect(hero).toBeVisible()
   await expect(hero).toHaveCSS('animation-name', 'none')
+  for (const block of await page.locator('[data-reveal]').all()) {
+    await expect(block).toHaveCSS('opacity', '1')
+    await expect(block).toHaveCSS('transform', 'none')
+  }
+})
+
+test('editorial blocks reveal on scroll and stay visible when motion preference changes', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/')
+  const block = page.locator('[data-reveal]').first()
+  await expect(block).toHaveAttribute('data-reveal', 'pending')
+  await expect(block).toHaveCSS('opacity', '0')
+  await block.scrollIntoViewIfNeeded()
+  await expect(block).toHaveAttribute('data-reveal', 'visible')
+  await expect(block).toHaveCSS('opacity', '1')
+  await expect(block).toHaveCSS('transform', 'none')
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  for (const remaining of await page.locator('[data-reveal]').all()) {
+    await expect(remaining).toHaveAttribute('data-reveal', 'visible')
+    await expect(remaining).toHaveCSS('opacity', '1')
+  }
 })
 
 test('image failure shows the static fallback', async ({ page }) => {

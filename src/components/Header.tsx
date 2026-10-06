@@ -19,7 +19,6 @@ export default function Header(): JSX.Element {
     previousPathname.current = pathname
     if (menuOpen) {
       setMenuOpen(false)
-      buttonRef.current?.focus()
     }
   }, [pathname, menuOpen])
 

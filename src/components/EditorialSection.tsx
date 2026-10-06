@@ -12,7 +12,7 @@ interface EditorialSectionProps {
 export default function EditorialSection({ id, eyebrow, title, children, dark = false }: EditorialSectionProps): JSX.Element {
   return (
     <section id={id} className={`${styles.section} ${dark ? styles.dark : ''}`} aria-label={title}>
-      <div className={styles.inner}>
+      <div className={styles.inner} data-reveal="">
         <div className={styles.heading}>
           {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
           <h2>{title}</h2>
