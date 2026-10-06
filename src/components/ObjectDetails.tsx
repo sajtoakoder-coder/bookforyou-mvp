@@ -26,8 +26,8 @@ export default function ObjectDetails({ edition }: ObjectDetailsProps): JSX.Elem
           <article className={styles.detail} key={label} data-reveal="">
             <HeroObject asset={asset} alt={alt} />
             <div className={styles.caption}>
-              <span className={styles.number}>{String(index + 1).padStart(2, '0')}</span>
-              <div><h3>{label}</h3><p>{description}</p></div>
+              <h3><span className={styles.number}>{String(index + 1).padStart(2, '0')}</span> {label}</h3>
+              <p>{description}</p>
             </div>
           </article>
         ))}

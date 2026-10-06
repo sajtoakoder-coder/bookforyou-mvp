@@ -3,24 +3,26 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import styles from './Header.module.css'
 
 const links = [
-  { to: '/edition/001', label: 'Выпуск №001' },
-  { to: '/collection', label: 'Коллекция' },
+  { to: '/collection', label: 'COLLECTION' },
+  { to: '/edition/001', label: 'STORY' },
+  { to: '/#gift', label: 'GIFT' },
 ] as const
 
 export default function Header(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuId = useId()
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const { pathname } = useLocation()
-  const previousPathname = useRef(pathname)
+  const { pathname, hash } = useLocation()
+  const locationId = `${pathname}${hash}`
+  const previousLocation = useRef(locationId)
 
   useEffect(() => {
-    if (previousPathname.current === pathname) return
-    previousPathname.current = pathname
+    if (previousLocation.current === locationId) return
+    previousLocation.current = locationId
     if (menuOpen) {
       setMenuOpen(false)
     }
-  }, [pathname, menuOpen])
+  }, [locationId, menuOpen])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -40,6 +42,8 @@ export default function Header(): JSX.Element {
       <nav className={styles.desktopNav} aria-label="Разделы сайта">
         {links.map(({ to, label }) => <NavLink className={styles.link} key={to} to={to}>{label}</NavLink>)}
       </nav>
+      <div className={styles.release} aria-label="Выпуск №001, цена 4 900 рублей">№001 · 4 900 ₽</div>
+      <span className={styles.mobileRelease} aria-label="Выпуск №001">№001</span>
       <button
         ref={buttonRef}
         className={styles.menuButton}

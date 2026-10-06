@@ -11,6 +11,16 @@ function renderHeader() {
 }
 
 describe('Header', () => {
+  it('exposes the campaign navigation and release marker', () => {
+    renderHeader()
+    const navigation = document.querySelector('nav[aria-label="Разделы сайта"]') as HTMLElement
+    for (const label of ['COLLECTION', 'STORY', 'GIFT']) {
+      expect(navigation).toHaveTextContent(label)
+    }
+    expect(screen.getByText('№001 · 4 900 ₽')).toBeInTheDocument()
+    expect(screen.getByText('№001', { selector: 'span' })).toBeVisible()
+  })
+
   it('opens and closes the mobile navigation with an accessible button', () => {
     renderHeader()
     const button = screen.getByRole('button', { name: 'Меню' })

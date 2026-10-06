@@ -6,12 +6,11 @@ import AvailabilityNotice from './AvailabilityNotice'
 afterEach(cleanup)
 
 describe('AvailabilityNotice', () => {
-  it('uses only the non-purchasable availability copy', () => {
+  it('renders the exact release message without purchase controls', () => {
     render(<AvailabilityNotice />)
-    const button = screen.getByRole('button', { name: 'Скоро будет доступно' })
-    expect(button).toBeVisible()
-    expect(button).toHaveAttribute('type', 'button')
-    expect(button).toHaveAttribute('aria-disabled', 'true')
-    expect(screen.queryByText(/^купить$/i)).not.toBeInTheDocument()
+    expect(screen.getByText('СКОРО БУДЕТ ДОСТУПНО')).toBeVisible()
+    expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    expect(screen.queryByRole('form')).not.toBeInTheDocument()
   })
 })

@@ -28,9 +28,15 @@ describe('shared editorial components', () => {
 
   it('shows the four physical objects with meaningful image names', () => {
     render(<ObjectDetails edition={collection[0]} />)
-    for (const name of ['КНИГА', 'КОРОБКА', 'ЗАПЕЧАТАННЫЙ КОНВЕРТ', 'КАРТОЧКА С КООРДИНАТАМИ']) {
-      expect(screen.getByRole('heading', { name })).toBeVisible()
+    for (const [index, name] of ['КНИГА', 'КОРОБКА', 'ЗАПЕЧАТАННЫЙ КОНВЕРТ', 'КАРТОЧКА С КООРДИНАТАМИ'].entries()) {
+      expect(screen.getByRole('heading', { name: `${String(index + 1).padStart(2, '0')} ${name}` })).toBeVisible()
     }
     expect(screen.getAllByRole('img')).toHaveLength(4)
+    const articles = document.querySelectorAll('section[aria-labelledby="object-details-heading"] article')
+    expect(articles).toHaveLength(4)
+    articles.forEach((article, index) => {
+      const number = String(index + 1).padStart(2, '0')
+      expect(article.querySelector('h3')).toHaveTextContent(new RegExp(`^${number}\\s`))
+    })
   })
 })
