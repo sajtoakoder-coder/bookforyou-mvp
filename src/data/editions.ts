@@ -2,7 +2,7 @@ import bookDetailUrl from '../assets/renders/book-detail.png'
 import boxDetailUrl from '../assets/renders/box-detail.png'
 import coordinatesCardUrl from '../assets/renders/coordinates-card.png'
 import envelopeDetailUrl from '../assets/renders/envelope-detail.png'
-import fallbackObjectUrl from '../assets/renders/fallback-object.png'
+import fallbackObjectUrl from '../assets/renders/fallback-object.svg'
 import heroKitUrl from '../assets/renders/hero-kit.png'
 
 export interface AssetSource {
