@@ -1,3 +1,10 @@
+import bookDetailUrl from '../assets/renders/book-detail.png'
+import boxDetailUrl from '../assets/renders/box-detail.png'
+import coordinatesCardUrl from '../assets/renders/coordinates-card.png'
+import envelopeDetailUrl from '../assets/renders/envelope-detail.png'
+import fallbackObjectUrl from '../assets/renders/fallback-object.png'
+import heroKitUrl from '../assets/renders/hero-kit.png'
+
 export interface AssetSource {
   src: string
   width: number
@@ -25,13 +32,19 @@ export interface Edition {
   isCurrent: boolean
 }
 
-const placeholderAssets: EditionAssetPaths = {
-  hero: { src: '/src/assets/renders/hero-kit.webp', width: 1600, height: 1200 },
-  book: { src: '/src/assets/renders/book-detail.webp', width: 1000, height: 1200 },
-  box: { src: '/src/assets/renders/box-detail.webp', width: 1000, height: 1200 },
-  envelope: { src: '/src/assets/renders/envelope-detail.webp', width: 1000, height: 1200 },
-  coordinatesCard: { src: '/src/assets/renders/coordinates-card.webp', width: 1000, height: 1200 },
-  fallback: { src: '/src/assets/renders/fallback-object.webp', width: 1600, height: 1200 },
+export const fallbackAsset: AssetSource = {
+  src: fallbackObjectUrl,
+  width: 1774,
+  height: 887,
+}
+
+const renderAssets: EditionAssetPaths = {
+  hero: { src: heroKitUrl, width: 1774, height: 887 },
+  book: { src: bookDetailUrl, width: 1024, height: 1536 },
+  box: { src: boxDetailUrl, width: 1774, height: 887 },
+  envelope: { src: envelopeDetailUrl, width: 1536, height: 1024 },
+  coordinatesCard: { src: coordinatesCardUrl, width: 1536, height: 1024 },
+  fallback: fallbackAsset,
 }
 
 export const collection: readonly Edition[] = [
@@ -43,7 +56,7 @@ export const collection: readonly Edition[] = [
     price: '4 900 ₽',
     audienceLine: 'Описание выпуска будет добавлено',
     curatorText: 'Текст куратора будет добавлен',
-    assetPaths: placeholderAssets,
+    assetPaths: renderAssets,
     isCurrent: true,
   },
   {
@@ -54,7 +67,7 @@ export const collection: readonly Edition[] = [
     price: 'Цена будет объявлена',
     audienceLine: 'Описание выпуска будет добавлено',
     curatorText: 'Текст куратора будет добавлен',
-    assetPaths: placeholderAssets,
+    assetPaths: renderAssets,
     isCurrent: false,
   },
   {
@@ -65,7 +78,7 @@ export const collection: readonly Edition[] = [
     price: 'Цена будет объявлена',
     audienceLine: 'Описание выпуска будет добавлено',
     curatorText: 'Текст куратора будет добавлен',
-    assetPaths: placeholderAssets,
+    assetPaths: renderAssets,
     isCurrent: false,
   },
 ]
