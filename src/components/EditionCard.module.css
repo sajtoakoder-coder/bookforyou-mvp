@@ -1,13 +1,13 @@
-.current { display: grid; min-width: 0; background: var(--wine); color: var(--text-light); }
+.current { display: grid; min-width: 0; background: var(--ink-wine); color: var(--text-light); }
 .copy { min-width: 0; padding: 2rem 1.25rem; }
-.status { margin: 0; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.current h2 { margin-block: 2rem 1.5rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; }
+.status { margin: 0; color: rgb(244 237 226 / .7); font-size: .75rem; font-weight: 600; letter-spacing: .03em; }
+.current h2 { margin-block: 2rem 1.5rem; font-family: var(--font-body); font-size: .85rem; font-weight: 600; letter-spacing: .02em; }
 .title { max-width: 13ch; margin-bottom: 2rem; font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 6rem); letter-spacing: -0.04em; line-height: 0.95; }
 .price { margin-bottom: 0.8rem; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
 .copy a { display: flex; width: fit-content; justify-content: flex-start; gap: 2rem; margin-top: 1rem; border-bottom: 1px solid currentColor; color: inherit; font-size: 0.8rem; text-decoration: none; }
 .copy a span { font-size: 1.3em; transition: transform var(--motion-fast); }
 .copy a:hover span { transform: translate(2px, -2px); }
-.visual { position: relative; display: grid; min-width: 0; overflow: hidden; background: var(--ink-wine); }
+.visual { position: relative; display: grid; min-width: 0; overflow: hidden; background: var(--wine); }
 .visual figure { width: 100%; align-self: center; }
 .visual > span { position: absolute; bottom: -0.12em; right: 0.1em; font-family: var(--font-display); font-size: clamp(6rem, 18vw, 18rem); letter-spacing: -0.08em; line-height: 1; }
 .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); gap: 1rem; align-items: baseline; min-width: 0; padding: 1.75rem 0; border-bottom: 1px solid rgb(38 26 23 / 0.3); }

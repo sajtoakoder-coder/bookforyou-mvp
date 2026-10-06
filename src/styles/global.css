@@ -7,6 +7,7 @@
 html {
   min-width: 0;
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -19,6 +20,8 @@ body {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -72,8 +75,16 @@ h2,
 h3 {
   font-family: var(--font-display);
   line-height: 1.1;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
   overflow-wrap: anywhere;
 }
+
+p { text-wrap: pretty; }
+
+:is(.price, .release, .editionNumber, .edgePrice, [data-numeric]) { font-variant-numeric: tabular-nums; }
+
+::selection { background: var(--wine); color: var(--text-light); }
 
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {

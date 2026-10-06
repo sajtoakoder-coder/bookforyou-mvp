@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  --ink-wine: #180f0e;
-  --wine: #5b2027;
-  --paper: #f2eadd;
+  --ink-wine: #21080f;
+  --wine: #4a0f1d;
+  --paper: #f2e9db;
   --paper-raised: #fbf7f0;
-  --text-dark: #261a17;
+  --text-dark: #1b1715;
   --text-light: #f4ede2;
+  --copper: #9c7357;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: Manrope, Arial, sans-serif;
+  --font-display-weight: 500;
 
   --space-1: 0.5rem;
   --space-2: 1rem;

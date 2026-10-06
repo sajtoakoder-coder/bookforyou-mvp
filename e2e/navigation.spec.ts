@@ -86,7 +86,7 @@ test('GIFT navigation opens and focuses the gift section', async ({ page }) => {
   await expect(page).toHaveURL(/\/#gift$/)
   const gift = page.locator('#gift')
   await expect(gift).toBeInViewport()
-  await expect(gift.getByRole('heading', { name: 'BOOKFORYOU для другого' })).toBeFocused()
+  await expect(gift.getByRole('heading', { name: 'Книга, которую проще передать, чем объяснить' })).toBeFocused()
 
   await page.goto('/#gift')
   await expect(gift).toBeInViewport()

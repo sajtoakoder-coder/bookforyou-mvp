@@ -15,7 +15,7 @@ export default function HomePage(): JSX.Element {
       <section className={styles.hero} aria-labelledby="home-heading">
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Книга как личный коллекционный объект</p>
+            <p className={styles.kicker}>Личный выпуск для одного читателя</p>
             <h1 id="home-heading" aria-label="BOOK FOR YOU"><span>BOOK</span><span>FOR</span><span>YOU</span></h1>
             <span className={styles.editionNumber}>{edition.number}</span>
           </div>
@@ -24,24 +24,24 @@ export default function HomePage(): JSX.Element {
           </div>
           <div className={styles.heroFooter}>
             <p className={styles.heroLine}>Эта книга для того, кто…<br />…ждёт историю, которая окажется рядом в нужный момент.</p>
-            <div className={styles.releasePlaque}>
-              <p>ВЫПУСК {edition.number} — {edition.price}</p>
+            <div className={styles.releasePlaque} data-numeric="">
+              <p>Выпуск {edition.number} · {edition.price}</p>
               <AvailabilityNotice />
             </div>
-            <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>О выпуске {edition.number} <span aria-hidden="true">↗</span></Link>
+            <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>Смотреть выпуск {edition.number} <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
 
       <section className={styles.launchBand} aria-label="Первый выпуск">
-        <p>Первый выпуск / {edition.number}</p>
-        <p>История начинается с человека.</p>
-        <span aria-hidden="true">BOOKFORYOU</span>
+        <p>Первый выпуск · {edition.number}</p>
+        <p>Книга приходит не с ответом, а в нужный момент.</p>
+        <span aria-hidden="true">Читать медленнее</span>
       </section>
 
       <ObjectDetails edition={edition} />
 
-      <EditorialSection id="gift" eyebrow="Для близкого человека" title="BOOKFORYOU для другого" dark>
+      <EditorialSection id="gift" eyebrow="Для близкого человека" title="Книга, которую проще передать, чем объяснить" dark>
         <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
         <p>Книга, запечатанный конверт и координаты складываются в личное послание — без готовых объяснений за вас.</p>
       </EditorialSection>

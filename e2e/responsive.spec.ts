@@ -11,7 +11,7 @@ for (const width of [375, 1440]) {
     await expect(page.getByRole('banner', { name: 'Шапка сайта' })).toBeVisible()
     const title = page.getByRole('heading', { level: 1, name: 'BOOK FOR YOU' })
     await expect(title).toBeVisible()
-    await expect(page.getByText('ВЫПУСК №001 — 4 900 ₽')).toBeInViewport()
+    await expect(page.getByText('Выпуск №001 · 4 900 ₽')).toBeInViewport()
     await expect(page.getByRole('button', { name: /купить|заказать/i })).toHaveCount(0)
     const lines = await title.locator('span').evaluateAll((spans) => spans.map((span) => {
       const range = document.createRange()
@@ -74,7 +74,7 @@ test('reduced motion stops the ambient hero animation', async ({ page }) => {
   await expect(hero).toBeVisible()
   await expect(hero).toHaveCSS('animation-name', 'none')
   await expect(page.getByRole('heading', { level: 1, name: 'BOOK FOR YOU' })).toBeVisible()
-  await expect(page.getByText('ВЫПУСК №001 — 4 900 ₽')).toBeVisible()
+  await expect(page.getByText('Выпуск №001 · 4 900 ₽')).toBeVisible()
   for (const block of await page.locator('[data-reveal]').all()) {
     await expect(block).toHaveCSS('opacity', '1')
     await expect(block).toHaveCSS('transform', 'none')
