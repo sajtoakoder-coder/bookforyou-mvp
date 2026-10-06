@@ -3,6 +3,32 @@ import { expect, test } from '@playwright/test'
 const paths = ['/', '/edition/001', '/collection', '/legal/requisites', '/legal/privacy', '/legal/terms', '/legal/delivery']
 const widths = [375, 768, 1024, 1440]
 
+for (const width of [375, 1440]) {
+  test(`campaign hero fits its opening viewport at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    await page.evaluate(() => document.fonts.ready)
+    await expect(page.getByRole('banner', { name: 'Шапка сайта' })).toBeVisible()
+    const title = page.getByRole('heading', { level: 1, name: 'BOOK FOR YOU' })
+    await expect(title).toBeVisible()
+    await expect(page.getByText('ВЫПУСК №001 — 4 900 ₽')).toBeInViewport()
+    await expect(page.getByRole('button', { name: /купить|заказать/i })).toHaveCount(0)
+    const lines = await title.locator('span').evaluateAll((spans) => spans.map((span) => {
+      const range = document.createRange()
+      range.selectNodeContents(span)
+      const text = range.getBoundingClientRect()
+      const box = span.getBoundingClientRect()
+      return { textLeft: text.left, textRight: text.right, boxLeft: box.left, boxRight: box.right }
+    }))
+    for (const line of lines) {
+      expect(line.textLeft).toBeGreaterThanOrEqual(0)
+      expect(line.textRight).toBeLessThanOrEqual(width)
+      expect(line.textLeft).toBeGreaterThanOrEqual(line.boxLeft)
+      expect(line.textRight).toBeLessThanOrEqual(line.boxRight)
+    }
+  })
+}
+
 for (const width of widths) {
   test(`no horizontal overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
@@ -47,6 +73,8 @@ test('reduced motion stops the ambient hero animation', async ({ page }) => {
   const hero = page.getByRole('img', { name: /Комплект BOOKFORYOU/ }).first()
   await expect(hero).toBeVisible()
   await expect(hero).toHaveCSS('animation-name', 'none')
+  await expect(page.getByRole('heading', { level: 1, name: 'BOOK FOR YOU' })).toBeVisible()
+  await expect(page.getByText('ВЫПУСК №001 — 4 900 ₽')).toBeVisible()
   for (const block of await page.locator('[data-reveal]').all()) {
     await expect(block).toHaveCSS('opacity', '1')
     await expect(block).toHaveCSS('transform', 'none')

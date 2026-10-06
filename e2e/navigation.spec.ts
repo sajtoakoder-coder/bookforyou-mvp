@@ -8,8 +8,8 @@ const legalRoutes = [
 ] as const
 
 const publicRoutes = [
-  ['/', /BOOKFORYOU.*Эта книга для того, кто…/],
-  ['/edition/001', 'BOOKFORYOU №001'],
+  ['/', 'BOOK FOR YOU'],
+  ['/edition/001', 'Название книги будет объявлено'],
   ['/collection', 'Коллекция'],
 ] as const
 
@@ -31,12 +31,12 @@ for (const [path, heading] of legalRoutes) {
 
 test('header and footer navigate to every published route', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'Выпуск №001' }).click()
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'STORY' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
-  await expect(page.getByRole('button', { name: 'Скоро будет доступно', exact: true })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Скоро будет доступно', exact: true })).toHaveAttribute('aria-disabled', 'true')
+  await expect(page.getByRole('button', { name: /купить|заказать/i })).toHaveCount(0)
+  await expect(page.getByRole('link', { name: /купить|заказать/i })).toHaveCount(0)
 
-  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'Коллекция' }).click()
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'COLLECTION' }).click()
   await expect(page).toHaveURL(/\/collection$/)
 
   for (const [path, heading] of legalRoutes) {
@@ -56,10 +56,10 @@ test('mobile menu navigation remains reachable', async ({ page }) => {
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
   await menu.click()
   await expect(menu).toHaveAttribute('aria-expanded', 'true')
-  await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'Выпуск №001' }).click()
+  await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'STORY' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
-  await expect(page.getByRole('heading', { level: 1, name: 'BOOKFORYOU №001' })).toBeFocused()
+  await expect(page.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeFocused()
 })
 
 test('mobile collection card opens the edition at its focused heading', async ({ page }) => {
@@ -70,7 +70,7 @@ test('mobile collection card opens the edition at its focused heading', async ({
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
   await link.click()
   await expect(page).toHaveURL(/\/edition\/001$/)
-  const heading = page.getByRole('heading', { level: 1, name: 'BOOKFORYOU №001' })
+  const heading = page.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })
   await expect(heading).toBeFocused()
   await expect(heading).toBeInViewport()
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
@@ -78,4 +78,16 @@ test('mobile collection card opens the edition at its focused heading', async ({
   await page.goBack()
   await expect(page.getByRole('heading', { level: 1, name: 'Коллекция' })).toBeFocused()
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+})
+
+test('GIFT navigation opens and focuses the gift section', async ({ page }) => {
+  await page.goto('/collection')
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'GIFT' }).click()
+  await expect(page).toHaveURL(/\/#gift$/)
+  const gift = page.locator('#gift')
+  await expect(gift).toBeInViewport()
+  await expect(gift.getByRole('heading', { name: 'BOOKFORYOU для другого' })).toBeFocused()
+
+  await page.goto('/#gift')
+  await expect(gift).toBeInViewport()
 })

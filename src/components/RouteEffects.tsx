@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
 export default function RouteEffects(): null {
-  const { key } = useLocation()
+  const { key, hash } = useLocation()
   const previousKey = useRef(key)
 
   useEffect(() => {
@@ -12,14 +12,24 @@ export default function RouteEffects(): null {
   }, [])
 
   useLayoutEffect(() => {
-    if (previousKey.current === key) return
+    if (previousKey.current === key && !hash) return
     previousKey.current = key
+    if (hash) {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (target) {
+        const heading = target.querySelector<HTMLElement>('h1, h2, h3') ?? target
+        heading.setAttribute('tabindex', '-1')
+        heading.focus({ preventScroll: true })
+        target.scrollIntoView({ behavior: 'instant', block: 'start' })
+        return
+      }
+    }
     const main = document.getElementById('main-content')
     const heading = main?.querySelector<HTMLElement>('h1') ?? main
     heading?.setAttribute('tabindex', '-1')
     heading?.focus({ preventScroll: true })
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [key])
+  }, [key, hash])
 
   useEffect(() => {
     if (!window.matchMedia || !window.IntersectionObserver) return
