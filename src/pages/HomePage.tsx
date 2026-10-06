@@ -15,20 +15,16 @@ export default function HomePage(): JSX.Element {
       <section className={styles.hero} aria-labelledby="home-heading">
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Личный выпуск для одного читателя</p>
-            <h1 id="home-heading" aria-label="BOOK FOR YOU"><span>BOOK</span><span>FOR</span><span>YOU</span></h1>
-            <span className={styles.editionNumber}>{edition.number}</span>
+            <p className={styles.kicker}>BOOKFORYOU · личный выпуск</p>
+            <h1 id="home-heading"><span>КНИГА</span><span>ДЛЯ ТЕБЯ</span></h1>
           </div>
           <div className={styles.heroVisual}>
             <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority />
           </div>
           <div className={styles.heroFooter}>
-            <p className={styles.heroLine}>Эта книга для того, кто…<br />…ждёт историю, которая окажется рядом в нужный момент.</p>
-            <div className={styles.releasePlaque} data-numeric="">
-              <p>Выпуск {edition.number} · {edition.price}</p>
-              <AvailabilityNotice />
-            </div>
+            <p className={styles.heroLine}>История, которая окажется рядом в нужный момент.</p>
             <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>Смотреть выпуск {edition.number} <span aria-hidden="true">↗</span></Link>
+            <div className={styles.releasePlaque} data-numeric=""><p>{edition.number} · {edition.price}</p><AvailabilityNotice /></div>
           </div>
         </div>
       </section>

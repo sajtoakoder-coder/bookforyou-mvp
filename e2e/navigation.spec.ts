@@ -8,7 +8,7 @@ const legalRoutes = [
 ] as const
 
 const publicRoutes = [
-  ['/', 'BOOK FOR YOU'],
+  ['/', 'КНИГА ДЛЯ ТЕБЯ'],
   ['/edition/001', 'Название книги будет объявлено'],
   ['/collection', 'Коллекция'],
 ] as const
