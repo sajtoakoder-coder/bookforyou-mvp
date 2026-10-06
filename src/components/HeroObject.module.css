@@ -10,3 +10,17 @@
   width: 100%;
   height: auto;
 }
+
+.ambient {
+  animation: objectBreathe 24s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes objectBreathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.025); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient { animation: none; }
+}

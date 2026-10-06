@@ -6,9 +6,10 @@ interface HeroObjectProps {
   asset: AssetSource
   alt: string
   priority?: boolean
+  ambient?: boolean
 }
 
-export default function HeroObject({ asset, alt, priority = false }: HeroObjectProps): JSX.Element {
+export default function HeroObject({ asset, alt, priority = false, ambient = false }: HeroObjectProps): JSX.Element {
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
   const showFallback = failedSrc === asset.src
   const image = showFallback ? fallbackAsset : asset
@@ -16,7 +17,7 @@ export default function HeroObject({ asset, alt, priority = false }: HeroObjectP
   return (
     <figure className={styles.object}>
       <img
-        className={styles.image}
+        className={`${styles.image} ${ambient ? styles.ambient : ''}`}
         src={image.src}
         alt={alt}
         width={image.width}

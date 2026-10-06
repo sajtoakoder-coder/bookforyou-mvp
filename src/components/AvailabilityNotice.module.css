@@ -1,0 +1,17 @@
+.notice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 18rem);
+  min-height: var(--control-height);
+  padding: 0.65rem var(--space-3);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: default;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
