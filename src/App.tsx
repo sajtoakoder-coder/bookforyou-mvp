@@ -1,14 +1,15 @@
 import type { JSX } from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import { collection, getEditionBySlug } from './data/editions'
+import { getEditionBySlug } from './data/editions'
 import { legalPages } from './data/legalPages'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import EditionPage from './pages/EditionPage'
+import CollectionPage from './pages/CollectionPage'
 
 function NotFound(): JSX.Element {
   return <h1>Страница не найдена</h1>
-}
-
-function HomeRoute(): JSX.Element {
-  return <h1>BOOKFORYOU</h1>
 }
 
 function EditionRoute(): JSX.Element {
@@ -17,28 +18,7 @@ function EditionRoute(): JSX.Element {
 
   if (!edition) return <NotFound />
 
-  return (
-    <article>
-      <h1>BOOKFORYOU {edition.number}</h1>
-      <p>{edition.title}</p>
-      <p>{edition.author}</p>
-      <p>{edition.price}</p>
-    </article>
-  )
-}
-
-function CollectionRoute(): JSX.Element {
-  return (
-    <section aria-labelledby="collection-heading">
-      <h1 id="collection-heading">Коллекция</h1>
-      {collection.map((edition) => (
-        <article key={edition.slug}>
-          <h2>BOOKFORYOU {edition.number}</h2>
-          <p>{edition.title}</p>
-        </article>
-      ))}
-    </section>
-  )
+  return <EditionPage edition={edition} />
 }
 
 function LegalRoute(): JSX.Element {
@@ -58,21 +38,17 @@ function LegalRoute(): JSX.Element {
 export default function App(): JSX.Element {
   return (
     <BrowserRouter>
-      <header aria-label="Шапка сайта">
-        <span>BOOKFORYOU</span>
-      </header>
+      <Header />
       <main id="main-content">
         <Routes>
-          <Route path="/" element={<HomeRoute />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/edition/:slug" element={<EditionRoute />} />
-          <Route path="/collection" element={<CollectionRoute />} />
+          <Route path="/collection" element={<CollectionPage />} />
           <Route path="/legal/:slug" element={<LegalRoute />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <footer aria-label="Подвал сайта">
-        <span>BOOKFORYOU</span>
-      </footer>
+      <Footer />
     </BrowserRouter>
   )
 }

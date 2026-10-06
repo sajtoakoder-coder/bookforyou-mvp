@@ -1,0 +1,25 @@
+.card { display: grid; min-width: 0; border-top: 1px solid rgb(38 26 23 / 0.35); }
+.current { background: var(--paper-raised); border-top-color: var(--wine); }
+.visual { display: flex; min-width: 0; min-height: 12rem; align-items: center; justify-content: center; background: #e6dbce; }
+.current .visual { background: var(--ink-wine); }
+.visual figure { width: 100%; aspect-ratio: 1774 / 887; }
+.visual img { width: 100%; height: 100%; object-fit: cover; }
+.visual > span { font-family: var(--font-display); font-size: clamp(5rem, 12vw, 9rem); opacity: 0.4; }
+.copy { min-width: 0; padding: 2rem 1rem 2.5rem; }
+.status { margin-bottom: 1.5rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.current .status { color: var(--wine); }
+.copy h2 { margin-bottom: 1.5rem; font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 500; }
+.copy > p { max-width: 38rem; }
+.audience { color: #584b45; }
+.copy a { justify-content: flex-start; gap: 1rem; margin-top: 1rem; border-bottom: 1px solid currentColor; color: inherit; font-size: 0.9rem; text-decoration: none; }
+.copy a span { font-size: 1.3em; }
+
+@media (min-width: 768px) {
+  .card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+  .visual { min-height: 20rem; }
+  .copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 3rem clamp(2rem, 5vw, 6rem); }
+  .copy a { margin-top: 2rem; }
+}
+
+@media (min-width: 1024px) { .visual { min-height: 25rem; } }
+@media (min-width: 1440px) { .copy { padding-block: 5rem; } }

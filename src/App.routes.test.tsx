@@ -31,7 +31,7 @@ describe('edition data', () => {
 describe('direct routes', () => {
   it('renders the home page', () => {
     renderAtPath('/')
-    expect(screen.getByRole('heading', { name: /bookforyou/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: /bookforyou/i })).toBeInTheDocument()
   })
 
   it('renders the current edition for a direct URL', () => {
