@@ -13,6 +13,7 @@
 .wordmark {
   justify-content: flex-start;
   min-width: 0;
+  color: inherit;
   font-family: var(--font-body);
   font-size: clamp(1rem, 3vw, 1.3rem);
   font-weight: 700;

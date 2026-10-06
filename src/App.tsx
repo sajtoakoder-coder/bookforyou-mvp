@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import EditionPage from './pages/EditionPage'
 import CollectionPage from './pages/CollectionPage'
+import LegalPlaceholderPage from './pages/LegalPlaceholderPage'
 
 function NotFound(): JSX.Element {
   return <h1>Страница не найдена</h1>
@@ -27,12 +28,7 @@ function LegalRoute(): JSX.Element {
 
   if (!page) return <NotFound />
 
-  return (
-    <article>
-      <h1>{page.title}</h1>
-      <p>{page.notice}</p>
-    </article>
-  )
+  return <LegalPlaceholderPage page={page} />
 }
 
 export default function App(): JSX.Element {
