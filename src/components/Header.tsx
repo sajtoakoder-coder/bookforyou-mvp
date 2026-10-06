@@ -12,8 +12,16 @@ export default function Header(): JSX.Element {
   const menuId = useId()
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { pathname } = useLocation()
+  const previousPathname = useRef(pathname)
 
-  useEffect(() => setMenuOpen(false), [pathname])
+  useEffect(() => {
+    if (previousPathname.current === pathname) return
+    previousPathname.current = pathname
+    if (menuOpen) {
+      setMenuOpen(false)
+      buttonRef.current?.focus()
+    }
+  }, [pathname, menuOpen])
 
   useEffect(() => {
     if (!menuOpen) return

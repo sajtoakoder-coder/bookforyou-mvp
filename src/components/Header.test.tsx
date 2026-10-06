@@ -38,7 +38,11 @@ describe('Header', () => {
     renderHeader()
     const button = screen.getByRole('button', { name: 'Меню' })
     fireEvent.click(button)
-    fireEvent.click(screen.getByRole('navigation', { name: 'Основная навигация' }).querySelector('a[href="/collection"]')!)
+    const destination = screen.getByRole('navigation', { name: 'Основная навигация' }).querySelector('a[href="/collection"]') as HTMLAnchorElement
+    destination.focus()
+    expect(destination).toHaveFocus()
+    fireEvent.click(destination)
     expect(button).toHaveAttribute('aria-expanded', 'false')
+    expect(button).toHaveFocus()
   })
 })

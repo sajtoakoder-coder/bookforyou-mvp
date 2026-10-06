@@ -36,3 +36,10 @@ Implemented reusable `Header`, `Footer`, `EditorialSection`, `ObjectDetails`, an
 - Component motion uses opacity and transform only: controls 150–250 ms, hero 24 s. The global reduced-motion rule and local animation overrides disable decorative movement.
 - Physical-object copy stays editorial and avoids prohibited reference motifs. Edition title, author, price, curator copy, and asset paths continue to come from the typed data module.
 - Task 5 still needs to assemble these components into public pages; Task 6 owns browser viewport and direct-route QA.
+
+## Review fix round 1 — focus after mobile navigation
+
+- Reviewer found that a keyboard-focused mobile link could become hidden after route navigation while retaining focus.
+- Extended the route-change test to focus the mobile collection link before activation and assert that focus moves to the visible «Меню» button. The test failed against the previous implementation: the hidden link still held focus.
+- `Header` now compares the current and previous pathname. When a route changes while the menu is open, it closes the menu and focuses its button. Initial render does not move focus; the Escape behavior remains unchanged.
+- Verification: focused `Header.test.tsx` passed (3/3), full suite passed (24/24), `npm run build` passed.
