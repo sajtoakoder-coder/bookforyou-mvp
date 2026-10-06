@@ -1,0 +1,19 @@
+.notice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--control-height);
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-align: center;
+}

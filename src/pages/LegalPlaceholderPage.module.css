@@ -1,0 +1,40 @@
+.page {
+  display: grid;
+  align-items: center;
+  min-height: 60vh;
+  min-width: 0;
+  padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 4vw, 4rem);
+  background: var(--paper);
+}
+
+.content {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.content h1 {
+  max-width: 15ch;
+  margin-bottom: var(--space-4);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 400;
+}
+
+.content .longTitle {
+  max-width: 25ch;
+  font-size: clamp(2rem, 7vw, 7rem);
+  overflow-wrap: normal;
+}
+
+.notice {
+  max-width: 38rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+}

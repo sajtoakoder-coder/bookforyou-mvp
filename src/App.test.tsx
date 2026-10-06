@@ -1,0 +1,13 @@
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/vitest'
+import { describe, expect, it } from 'vitest'
+import App from './App'
+
+describe('App', () => {
+  it('renders the BOOKFORYOU application shell', () => {
+    render(<App />)
+    expect(screen.getByRole('banner')).toBeInTheDocument()
+    expect(screen.getByRole('main')).toBeInTheDocument()
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument()
+  })
+})
