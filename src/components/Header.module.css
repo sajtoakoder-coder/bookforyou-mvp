@@ -46,7 +46,7 @@
 .link:hover,
 .mobileLink:hover { opacity: 0.72; }
 .link[aria-current='page'],
-.mobileLink[aria-current='page'] { border-bottom: 1px solid var(--copper); color: var(--paper); }
+.mobileLink[aria-current='page'] { border-bottom: 1px solid var(--brass); color: var(--paper); }
 
 .menuButton {
   display: inline-flex;
@@ -65,7 +65,7 @@
   transition: opacity var(--motion-fast) ease, transform var(--motion-fast) ease;
 }
 
-.menuButton:hover { border-color: var(--copper); color: var(--copper); }
+.menuButton:hover { border-color: var(--brass); color: var(--brass); }
 .menuButton:active { transform: scale(0.96); }
 .menuLine { width: 1.15rem; height: 1px; background: currentColor; }
 

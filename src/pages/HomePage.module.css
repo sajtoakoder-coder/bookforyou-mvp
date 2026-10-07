@@ -1,26 +1,27 @@
-.hero { position: relative; isolation: isolate; min-height: 46rem; padding: 6rem 5vw 0; overflow: hidden; background: #250d10; color: var(--text-light); }
+.hero { position: relative; isolation: isolate; min-height: 46rem; padding: 6rem 5vw 0; overflow: hidden; background: var(--ink-wine); color: var(--text-light); }
 .heroVisual { position: absolute; z-index: -1; inset: 0; }
 .heroVisual figure, .heroVisual img { width: 100%; height: 100%; }
 .heroVisual img { object-fit: cover; object-position: 68% center; }
 .heroCopy { position: relative; width: 45%; padding-bottom: 4.75rem; }
-.introduction { margin-bottom: 2rem; font-size: .8125rem; color: #d4b9ad; }
+.introduction { margin-bottom: 2rem; font-size: .8125rem; color: var(--text-muted-light); }
 .hero h1 { margin: 0 0 2rem; font-family: var(--font-display); font-size: clamp(5.5rem, 8.5vw, 9.5rem); font-weight: 500; line-height: .98; letter-spacing: -.03em; }
-.description { max-width: 32ch; margin-bottom: 2.25rem; font-size: 1rem; line-height: 1.7; color: #e1ccc0; }
+.description { max-width: 32ch; margin-bottom: 2.25rem; font-size: 1rem; line-height: 1.7; color: var(--paper); }
 .button { display: inline-flex; justify-content: space-between; gap: 2.5rem; padding: .95rem 1.2rem; min-height: 3.25rem; background: var(--paper); color: var(--wine); font-size: .875rem; font-weight: 600; text-decoration: none; transition: background 180ms, transform 180ms; }
 .button:hover { background: var(--paper-raised); transform: translateY(-2px); }
 .button:active { transform: translateY(0); }
 .release { margin-top: 1.75rem; font-size: .8125rem; font-variant-numeric: tabular-nums; }
 .release p { margin-bottom: .5rem; }
-.release span { font-size: .75rem; color: #ccb3a9; }
-.heroFoot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; border-top: 1px solid #a0746255; font-size: .8125rem; color: #e1ccc0; }
+.release span { font-size: .75rem; color: var(--text-muted-light); }
+.heroFoot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; border-top: 1px solid var(--light-rule); font-size: .8125rem; color: var(--paper); }
 .heroFoot a { color: inherit; text-decoration: none; gap: 1.5rem; }
 .statement, .curator { display: grid; grid-template-columns: 1fr 2fr; gap: 6vw; padding: clamp(6rem, 9vw, 9rem) 5vw; background: var(--paper); }
 .statement > p, .curator > div > p:first-child, .collection > div > p:first-child { font-size: .8125rem; }
 .statement h2 { margin-bottom: 2.5rem; font-size: clamp(3rem, 4.7vw, 5.5rem); font-weight: 500; line-height: 1.1; }
 .statement div > p { max-width: 49ch; font-size: 1rem; line-height: 1.75; }
-.gift { display: grid; grid-template-columns: 1fr 1fr; background: var(--wine); color: var(--paper); }
-.giftImage { display: flex; align-items: center; min-width: 0; background: var(--ink-wine); }
-.giftImage figure { width: 100%; }
+.gift { display: grid; grid-template-columns: 1fr 1fr; background: radial-gradient(ellipse at top right, #60281b 0, var(--wine) 65%, #2a100c 100%); color: var(--paper); }
+.giftImage { position: relative; min-width: 0; min-height: 24rem; overflow: hidden; background: var(--ink-wine); }
+.giftImage figure { position: absolute; inset: 0; width: 100%; height: 100%; }
+.giftImage img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
 .giftCopy { padding: 6.5rem 5vw; }
 .giftCopy > p:first-child { margin-bottom: 2rem; font-size: .8125rem; }
 .gift h2 { max-width: 14ch; margin-bottom: 2.25rem; font-size: clamp(2.75rem, 4.2vw, 4.5rem); font-weight: 500; line-height: 1.12; }
@@ -33,11 +34,25 @@
 .curator blockquote { max-width: 33ch; margin: 0 0 3rem; font-family: var(--font-display); font-size: clamp(1.8rem, 2.5vw, 2.9rem); line-height: 1.35; }
 .curator h3 { font-family: var(--font-body); font-size: .875rem; font-weight: 600; }
 .curator div > p:last-child { max-width: 53ch; }
-.collection { display: flex; justify-content: space-between; align-items: end; gap: 3rem; padding: 7rem 5vw; background: var(--wine); color: var(--paper); }
+.collection { display: flex; justify-content: space-between; align-items: end; gap: 3rem; padding: 7rem 5vw; background: radial-gradient(ellipse at top right, #60281b 0, var(--wine) 65%, #2a100c 100%); color: var(--paper); }
 .collection h2 { margin-bottom: 2rem; font-size: clamp(3rem, 4.8vw, 5.5rem); font-weight: 500; line-height: 1.04; }
-.issueNumber { font-family: var(--font-display); font-size: clamp(8rem, 20vw, 20rem); font-variant-numeric: tabular-nums; line-height: .8; color: #cba399; }
+.issueNumber { font-family: var(--font-display); font-size: clamp(8rem, 20vw, 20rem); font-variant-numeric: tabular-nums; line-height: .8; color: var(--brass); }
 @media (min-width: 1600px) { .hero { padding-inline: max(5vw, calc((100vw - 1440px) / 2)); } .heroCopy { width: 40%; } }
 @media (max-width: 900px) { .hero { min-height: 41rem; padding-top: 4rem; } .heroCopy { width: 55%; } .hero h1 { font-size: clamp(4rem, 10vw, 7rem); } .heroVisual img { object-position: 60% center; } .giftCopy { padding: 3rem 5vw; } }
+@media (max-width: 900px) {
+  .heroVisual {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 3.5rem, #000 calc(100% - 2rem), transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 3.5rem, #000 calc(100% - 2rem), transparent);
+  }
+  .heroFoot { border-top: 0; }
+  .gift { grid-template-columns: 1fr; }
+  .giftImage { min-height: 0; aspect-ratio: 3 / 2; }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .hero { min-height: 0; }
+  .heroVisual { inset: auto 0 3.5rem; height: calc(100vw * 1536 / 2752); }
+  .heroCopy { width: 100%; padding-bottom: calc(100vw * 1536 / 2752 + 1.5rem); }
+}
 @media (max-width: 600px) {
   .hero { min-height: 0; padding: 2.75rem 1.5rem 0; }
   .heroVisual { inset: auto 0 3.5rem; height: 18rem; }
@@ -53,7 +68,7 @@
   .statement, .curator { grid-template-columns: 1fr; padding: 4.5rem 1.5rem; gap: 1.75rem; }
   .statement h2 { font-size: 2.8rem; }
   .gift { grid-template-columns: 1fr; }
-  .giftImage { max-height: 17rem; overflow: hidden; }
+  .giftImage { aspect-ratio: 4 / 3; }
   .giftCopy { padding: 3.5rem 1.5rem 4.5rem; }
   .curator h2 { max-width: none; }
   .collection { padding: 4.5rem 1.5rem; flex-direction: column; align-items: stretch; gap: 3.5rem; }

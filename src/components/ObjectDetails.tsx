@@ -10,8 +10,8 @@ interface Detail { label: string; alt: string; asset: AssetSource; description: 
 export default function ObjectDetails({ edition }: ObjectDetailsProps): JSX.Element {
   const details: Detail[] = [
     { label: 'КНИГА', alt: 'Книга BOOKFORYOU', asset: edition.assetPaths.book, description: 'Главный предмет выпуска — книга в физическом переплёте.' },
-    { label: 'КОРОБКА', alt: 'Коробка комплекта BOOKFORYOU', asset: edition.assetPaths.box, description: 'Комплект хранится как единый коллекционный объект.' },
-    { label: 'ЗАПЕЧАТАННЫЙ КОНВЕРТ', alt: 'Запечатанный конверт BOOKFORYOU', asset: edition.assetPaths.envelope, description: 'Личный элемент, который раскрывает историю постепенно.' },
+    { label: 'ТЕКСТИЛЬНЫЙ КОНВЕРТ', alt: 'Текстильный конверт для книги BOOKFORYOU', asset: edition.assetPaths.textileEnvelope, description: 'Конверт для книги, который можно сохранить и использовать снова.' },
+    { label: 'ЗАПЕЧАТАННЫЙ КОНВЕРТ', alt: 'Запечатанный конверт BOOKFORYOU', asset: edition.assetPaths.envelope, description: 'Отдельный бумажный конверт — личный элемент выпуска.' },
     { label: 'КАРТОЧКА С КООРДИНАТАМИ', alt: 'Карточка с координатами BOOKFORYOU', asset: edition.assetPaths.coordinatesCard, description: 'Координаты предлагают интеллектуальную игру с литературой.' },
   ]
 

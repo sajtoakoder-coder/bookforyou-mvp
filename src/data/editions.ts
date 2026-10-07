@@ -1,9 +1,9 @@
-import bookDetailUrl from '../assets/renders/book-detail.png'
-import boxDetailUrl from '../assets/renders/box-detail.png'
-import coordinatesCardUrl from '../assets/renders/coordinates-card.png'
-import envelopeDetailUrl from '../assets/renders/envelope-detail.png'
+import bookDetailUrl from '../assets/renders/book-client-v3-web.jpg'
+import textileEnvelopeUrl from '../assets/renders/textile-envelope-client-v3-web.jpg'
+import coordinatesCardUrl from '../assets/renders/coordinate-card-client-v3-web.jpg'
+import envelopeDetailUrl from '../assets/renders/paper-envelope-client-v3-web.jpg'
 import fallbackObjectUrl from '../assets/renders/fallback-object.svg'
-import heroKitUrl from '../assets/renders/hero-kit.png'
+import heroKitUrl from '../assets/renders/hero-client-v3-web.jpg'
 
 export interface AssetSource {
   src: string
@@ -14,7 +14,7 @@ export interface AssetSource {
 export interface EditionAssetPaths {
   hero: AssetSource
   book: AssetSource
-  box: AssetSource
+  textileEnvelope: AssetSource
   envelope: AssetSource
   coordinatesCard: AssetSource
   fallback: AssetSource
@@ -39,11 +39,11 @@ export const fallbackAsset: AssetSource = {
 }
 
 const renderAssets: EditionAssetPaths = {
-  hero: { src: heroKitUrl, width: 1774, height: 887 },
-  book: { src: bookDetailUrl, width: 1024, height: 1536 },
-  box: { src: boxDetailUrl, width: 1774, height: 887 },
-  envelope: { src: envelopeDetailUrl, width: 1536, height: 1024 },
-  coordinatesCard: { src: coordinatesCardUrl, width: 1536, height: 1024 },
+  hero: { src: heroKitUrl, width: 2752, height: 1536 },
+  book: { src: bookDetailUrl, width: 1792, height: 2400 },
+  textileEnvelope: { src: textileEnvelopeUrl, width: 2752, height: 1536 },
+  envelope: { src: envelopeDetailUrl, width: 2752, height: 1536 },
+  coordinatesCard: { src: coordinatesCardUrl, width: 2752, height: 1536 },
   fallback: fallbackAsset,
 }
 

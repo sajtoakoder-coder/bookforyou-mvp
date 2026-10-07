@@ -38,8 +38,8 @@ describe('HeroObject', () => {
     render(<HeroObject asset={collection[0].assetPaths.book} alt="Бордовая книга" />)
     const image = screen.getByRole('img', { name: 'Бордовая книга' })
 
-    expect(image).toHaveAttribute('width', '1024')
-    expect(image).toHaveAttribute('height', '1536')
+    expect(image).toHaveAttribute('width', '1792')
+    expect(image).toHaveAttribute('height', '2400')
     expect(image).toHaveAttribute('loading', 'lazy')
   })
 

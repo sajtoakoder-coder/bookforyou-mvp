@@ -10,7 +10,7 @@ export default function HomePage() {
     <>
       <section className={styles.hero} aria-labelledby="home-heading">
         <div className={styles.heroVisual}>
-          <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority />
+          <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, текстильный конверт, бумажный конверт и карточка с координатами" priority />
         </div>
         <div className={styles.heroCopy}>
           <p className={styles.introduction}>Независимый книжный проект</p>
@@ -19,7 +19,7 @@ export default function HomePage() {
           <Link className={styles.button} to="/edition/001">Смотреть выпуск №001 <span aria-hidden="true">↗</span></Link>
           <div className={styles.release}><p>№001 · 4 900 ₽</p><span>СКОРО БУДЕТ ДОСТУПНО</span></div>
         </div>
-        <div className={styles.heroFoot}><span>Книга · коробка · конверт · координаты</span><Link to="/#inside">Рассмотреть ближе <span aria-hidden="true">↓</span></Link></div>
+        <div className={styles.heroFoot}><span>Книга, два конверта и координаты</span><Link to="/#inside">Рассмотреть ближе <span aria-hidden="true">↓</span></Link></div>
       </section>
 
       <section className={styles.statement} aria-label="Первый выпуск">
@@ -30,7 +30,7 @@ export default function HomePage() {
       <KitExplorer edition={edition} />
 
       <section id="gift" className={styles.gift} aria-label="Книга, которую проще передать, чем объяснить">
-        <div className={styles.giftImage}><HeroObject asset={edition.assetPaths.envelope} alt="Бордовый запечатанный конверт BOOKFORYOU" /></div>
+        <div className={styles.giftImage}><HeroObject asset={edition.assetPaths.textileEnvelope} alt="Бордовый текстильный конверт для книги BOOKFORYOU" /></div>
         <div className={styles.giftCopy} data-reveal="">
           <p>BOOKFORYOU для другого</p>
           <h2>Книга, которую проще передать, чем объяснить</h2>

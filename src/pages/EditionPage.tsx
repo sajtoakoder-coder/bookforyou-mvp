@@ -30,7 +30,7 @@ export default function EditionPage({ edition }: { edition: Edition }): JSX.Elem
       </EditorialSection>
       <section className={styles.objectField} aria-label={`Объект ${edition.number}`}>
         <p>Одна история. Четыре предмета.</p>
-        <HeroObject asset={edition.assetPaths.hero} alt={`Комплект BOOKFORYOU ${edition.number}: книга, коробка, конверт и карточка`} />
+        <HeroObject asset={edition.assetPaths.hero} alt={`Комплект BOOKFORYOU ${edition.number}: книга, текстильный конверт, бумажный конверт и карточка`} />
         <span>BOOKFORYOU / {edition.number}</span>
       </section>
       <ObjectDetails edition={edition} />

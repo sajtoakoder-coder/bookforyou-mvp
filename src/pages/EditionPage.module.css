@@ -9,7 +9,7 @@
 .author { font-size: .94rem; }
 .audience { max-width: 30rem; margin-top: 2rem; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.7rem); line-height: 1.15; }
 .cover { width: 78%; max-width: 31rem; margin: 2rem 0 2rem auto; }
-.cover figure { aspect-ratio: 2 / 3; }
+.cover figure { aspect-ratio: 1792 / 2400; }
 .cover img { width: 100%; height: 100%; object-fit: cover; }
 .availability { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgb(244 237 226 / 0.35); }
 .availability > p:first-child { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.07em; }
