@@ -27,7 +27,7 @@ export default function KitExplorer({ edition }: { edition: Edition }) {
       <div className={styles.spread} data-reveal="">
         <div className={styles.preview} id="kit-preview" role="region" aria-label="Деталь комплекта" aria-live="polite" aria-busy={selected !== displayed}>
           <div className={styles.visual}>
-            {parts.map((item, index) => <div key={item.name} className={styles.photoLayer} data-part={index} data-active={displayed === index} aria-hidden={displayed !== index}>
+            {parts.map((item, index) => <div key={item.name} className={styles.photoLayer} data-part={index} data-active={displayed === index} aria-hidden={displayed !== index} inert={displayed !== index}>
               <HeroObject asset={item.asset} alt={item.alt} onReady={() => setReady(loaded => loaded.includes(index) ? loaded : [...loaded, index])} />
             </div>)}
           </div>

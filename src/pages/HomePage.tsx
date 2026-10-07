@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import HeroObject from '../components/HeroObject'
+import ArrowIcon from '../components/ArrowIcon'
 import KitExplorer from '../components/KitExplorer'
 import FirstEdition from '../components/FirstEdition'
 import { QuestionInvitation, ThreeQuestions, ReadingSteps, LastingEnvelope } from '../components/ReadingJourney'
@@ -18,10 +19,10 @@ export default function HomePage() {
           <p className={styles.introduction}>Независимый книжный проект</p>
           <h1 id="home-heading" aria-label="КНИГА ДЛЯ ТЕБЯ">Книга.<br />Для тебя.</h1>
           <p className={styles.description}>Для того, кто ты сегодня.<br />Одна история. И кое-что личное внутри.</p>
-          <Link className={styles.button} to="/edition/001">Смотреть выпуск №001 <span aria-hidden="true">↗</span></Link>
+          <Link className={styles.button} to="/edition/001">Смотреть выпуск №001 <ArrowIcon /></Link>
           <div className={styles.release}><p>№001 · 4 900 ₽</p><span>СКОРО БУДЕТ ДОСТУПНО</span></div>
         </div>
-        <div className={styles.heroFoot}><span>Книга, два конверта и координаты</span><Link to="/#inside">Рассмотреть ближе <span aria-hidden="true">↓</span></Link></div>
+        <div className={styles.heroFoot}><span>Книга, два конверта и координаты</span><Link to="/#inside">Рассмотреть ближе <ArrowIcon direction="down" /></Link></div>
       </section>
 
       <section id="idea" className={styles.statement} aria-label="Идея BOOKFORYOU">
@@ -42,7 +43,7 @@ export default function HomePage() {
           <h2>Книга, которую проще передать, чем объяснить</h2>
           <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
           <p>Книга и запечатанный конверт — личное послание. Дальше остаются только человек и история.</p>
-          <Link className={styles.textLink} to="/edition/001">Посмотреть комплект <span aria-hidden="true">↗</span></Link>
+          <Link className={styles.textLink} to="/edition/001">Посмотреть комплект <ArrowIcon /></Link>
         </div>
       </section>
 
@@ -54,7 +55,7 @@ export default function HomePage() {
       <FirstEdition edition={edition} />
 
       <section id="home-collection" className={styles.collection} aria-labelledby="home-collection-heading">
-        <div data-reveal=""><p>Коллекция BOOKFORYOU</p><h2 id="home-collection-heading">История начинается<br />с первого выпуска.</h2><Link className={styles.button} to="/collection">Смотреть коллекцию <span aria-hidden="true">↗</span></Link></div>
+        <div data-reveal=""><p>Коллекция BOOKFORYOU</p><h2 id="home-collection-heading">История начинается<br />с первого выпуска.</h2><Link className={styles.button} to="/collection">Смотреть коллекцию <ArrowIcon /></Link></div>
         <div className={styles.issueNumber} aria-hidden="true">001</div>
       </section>
     </>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Edition } from '../data/editions'
 import HeroObject from './HeroObject'
+import ArrowIcon from './ArrowIcon'
 import styles from './FirstEdition.module.css'
 
 export default function FirstEdition({ edition }: { edition: Edition }) {
@@ -13,7 +14,7 @@ export default function FirstEdition({ edition }: { edition: Edition }) {
         <p className={styles.description}>Одна книга. Три вопроса.<br />И свой путь по её страницам.</p>
         <div className={styles.offer}>
           <p className={styles.price}>{edition.price}</p>
-          <Link className={styles.button} to={`/edition/${edition.slug}`}>Рассмотреть выпуск {edition.number} <span aria-hidden="true">↗</span></Link>
+          <Link className={styles.button} to={`/edition/${edition.slug}`}>Рассмотреть выпуск {edition.number} <ArrowIcon /></Link>
           <p className={styles.availability}>Скоро будет доступно</p>
         </div>
       </div>

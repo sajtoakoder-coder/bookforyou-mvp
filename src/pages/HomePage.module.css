@@ -39,26 +39,16 @@
 .collection h2 { margin-bottom: 2rem; font-size: clamp(3rem, 4.8vw, 5.5rem); font-weight: 500; line-height: 1.04; }
 .issueNumber { font-family: var(--font-display); font-size: clamp(8rem, 20vw, 20rem); font-variant-numeric: tabular-nums; line-height: .8; color: var(--paper); opacity: .45; }
 @media (min-width: 1600px) { .heroCopy { width: 40%; } }
-@media (max-width: 900px) { .hero { min-height: 41rem; padding-top: 4rem; } .heroCopy { width: 55%; } .hero h1 { font-size: clamp(4rem, 10vw, 7rem); } .heroVisual img { object-position: 60% center; } .giftCopy { padding: 3rem 5vw; } }
+@media (max-width: 900px) { .hero { padding-top: 4rem; } .hero h1 { font-size: clamp(4rem, 10vw, 7rem); } }
 @media (max-width: 900px) {
-  .heroVisual {
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 3.5rem, #000 calc(100% - 2rem), transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 3.5rem, #000 calc(100% - 2rem), transparent);
-  }
-  .heroFoot { border-top: 0; }
+  .heroFoot { border-top: 1px solid var(--light-rule); }
   .gift { grid-template-columns: 1fr; }
-  .giftImage { min-height: 0; aspect-ratio: 3 / 2; }
-}
-@media (min-width: 601px) and (max-width: 900px) {
-  .hero { min-height: 0; }
-  .heroVisual { inset: auto 0 4.75rem; height: calc(100vw * 1536 / 2752); }
-  .heroCopy { width: 100%; padding-bottom: calc(100vw * 1536 / 2752 + 1.5rem); }
+  /* The keepsake chapter already shows this exact photograph on mobile. */
+  .giftImage { display: none; }
+  .giftCopy { padding: 4rem 5vw; }
 }
 @media (max-width: 600px) {
   .hero { min-height: 0; padding: 2.75rem 1.5rem 0; }
-  .heroVisual { inset: auto 0 4.75rem; height: 18rem; }
-  .heroVisual img { object-position: right center; }
-  .heroCopy { width: 100%; padding-bottom: 19rem; }
   .hero h1 { font-size: clamp(4.5rem, 19vw, 6rem); }
   .introduction { margin-bottom: 1.5rem; }
   .description { max-width: none; }
@@ -69,10 +59,20 @@
   .statement, .curator { grid-template-columns: 1fr; padding: 4.5rem 1.5rem; gap: 1.75rem; }
   .statement h2 { font-size: 2.8rem; }
   .gift { grid-template-columns: 1fr; }
-  .giftImage { aspect-ratio: 4 / 3; }
-  .giftCopy { padding: 3.5rem 1.5rem 4.5rem; }
   .curator h2 { max-width: none; }
   .collection { padding: 4.5rem 1.5rem; flex-direction: column; align-items: stretch; gap: 3.5rem; }
   .issueNumber { align-self: end; font-size: 9rem; }
+}
+@media (max-width: 900px) {
+  .hero { min-height: 0; }
+  .heroCopy { order: 0; width: 100%; padding-bottom: 2rem; }
+  .heroVisual { order: 1; position: relative; z-index: 0; inset: auto; height: clamp(20rem, 75vw, 36rem); margin-inline: -5vw; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 2rem); mask-image: linear-gradient(to bottom, transparent, #000 2rem); }
+  .heroVisual img { object-position: right center; }
+  .heroFoot { order: 2; }
+  .button, .textLink { align-items: center; min-height: 44px; }
+}
+@media (max-width: 600px) {
+  .heroVisual { margin-inline: -1.5rem; }
+  .giftCopy { padding: 3.5rem 1.5rem 4rem; }
 }
 @media (prefers-reduced-motion: no-preference) { .heroCopy { animation: enter var(--motion-reveal) var(--ease-out) both; } @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } } }

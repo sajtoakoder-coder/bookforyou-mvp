@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { afterEach, describe, expect, it } from 'vitest'
-import { collection, fallbackAsset } from '../data/editions'
+import { collection } from '../data/editions'
 import HeroObject from './HeroObject'
 
 const brokenAsset = { src: '/missing-render.png', width: 1600, height: 1200 }
@@ -9,29 +9,28 @@ const brokenAsset = { src: '/missing-render.png', width: 1600, height: 1200 }
 afterEach(cleanup)
 
 describe('HeroObject', () => {
-  it('uses a distinct local fallback when the real hero fails', () => {
+  it('retries the real photograph once after a transient failure', () => {
     const hero = collection[0].assetPaths.hero
-    expect(fallbackAsset.src).toMatch(/^(?:data:image\/svg\+xml,|.*fallback-object\.svg)/)
-    expect(fallbackAsset.src).not.toBe(hero.src)
 
     render(<HeroObject asset={hero} alt="Комплект BOOKFORYOU" priority />)
     const image = screen.getByRole('img', { name: /комплект/i })
     expect(image).toHaveAttribute('src', hero.src)
 
     fireEvent.error(image)
-    expect(image).toHaveAttribute('src', fallbackAsset.src)
+    expect(image).toHaveAttribute('src', `${hero.src}?photo_retry=1`)
   })
 
-  it('swaps to the static fallback when the render cannot load', () => {
+  it('offers a labelled retry instead of a misleading illustration after two failures', () => {
     render(<HeroObject asset={brokenAsset} alt="Комплект BOOKFORYOU" />)
     const image = screen.getByRole('img', { name: /комплект/i })
 
     fireEvent.error(image)
 
-    expect(image).toHaveAttribute('src', fallbackAsset.src)
-    expect(image).toHaveAttribute('alt', 'Комплект BOOKFORYOU')
     fireEvent.error(image)
-    expect(image).toHaveAttribute('src', fallbackAsset.src)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
+    expect(screen.getByText('Комплект BOOKFORYOU')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Загрузить фото ещё раз' }))
+    expect(screen.getByRole('img')).toHaveAttribute('src', `${brokenAsset.src}?photo_retry=2`)
   })
 
   it('reserves image dimensions and lazily loads non-priority details', () => {

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Edition } from '../data/editions'
 import HeroObject from './HeroObject'
+import ArrowIcon from './ArrowIcon'
 import styles from './ReadingJourney.module.css'
 
 export function QuestionInvitation({ edition }: { edition: Edition }) {
@@ -9,7 +10,7 @@ export function QuestionInvitation({ edition }: { edition: Edition }) {
       <div className={styles.invitationCopy} data-reveal="">
         <h2 id="begin-heading">Начни книгу<br /> с вопроса.</h2>
         <p>Иногда книга знает больше,<br />чем мы сами.</p>
-        <Link to="/#questions" className={styles.link}>Что за вопрос? <span aria-hidden="true">↓</span></Link>
+        <Link to="/#questions" className={styles.link}>Что за вопрос? <ArrowIcon direction="down" /></Link>
       </div>
       <div className={styles.envelopePhoto}><HeroObject asset={edition.assetPaths.envelope} alt="Бумажный конверт с надписью «Начни книгу с вопроса»" /></div>
     </section>
@@ -19,13 +20,13 @@ export function QuestionInvitation({ edition }: { edition: Edition }) {
 export function ThreeQuestions({ edition }: { edition: Edition }) {
   return (
     <section id="questions" className={styles.questions} aria-labelledby="questions-heading">
-      <div className={styles.cardPhoto}><HeroObject asset={edition.assetPaths.coordinatesCard} alt="Карточка BOOKFORYOU с тремя строками для ваших вопросов" /></div>
       <div className={styles.questionsCopy} data-reveal="">
         <h2 id="questions-heading">Три вопроса.<br /> Одна книга.</h2>
         <p>Вы задаёте три вопроса себе. Внутри — три координаты: откройте книгу и прочитайте то, что оказалось в этой точке.</p>
         <p className={styles.coordinateKey}>Страница. Строка. Абзац.</p>
         <p className={styles.note}>Не предсказание и не готовый ответ. Личный разговор с текстом.</p>
       </div>
+      <div className={styles.cardPhoto}><HeroObject asset={edition.assetPaths.coordinatesCard} alt="Карточка BOOKFORYOU с тремя строками для ваших вопросов" /></div>
     </section>
   )
 }

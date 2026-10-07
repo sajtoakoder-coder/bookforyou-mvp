@@ -1,9 +1,15 @@
 .object {
+  position: relative;
   width: 100%;
   margin: 0;
   overflow: hidden;
   background: var(--ink-wine);
 }
+
+.error { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: .75rem; height: 100%; min-height: 12rem; padding: 2rem; text-align: center; color: var(--paper); background: var(--ink-wine); }
+.error p { max-width: 32ch; margin: 0; font-size: .875rem; line-height: 1.6; }
+.error button { min-height: 44px; padding: .75rem 1rem; border: 1px solid var(--light-rule); background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.error button:active { background: var(--wine-deep); }
 
 .image {
   display: block;

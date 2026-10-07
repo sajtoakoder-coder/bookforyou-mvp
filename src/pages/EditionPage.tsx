@@ -1,6 +1,7 @@
 import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import HeroObject from '../components/HeroObject'
+import ArrowIcon from '../components/ArrowIcon'
 import KitExplorer from '../components/KitExplorer'
 import AvailabilityNotice from '../components/AvailabilityNotice'
 import type { Edition } from '../data/editions'
@@ -24,7 +25,7 @@ export default function EditionPage({ edition }: { edition: Edition }): JSX.Elem
           <div className={styles.availability}>
             <p className={styles.price}>{edition.price}</p>
             {edition.isCurrent && <AvailabilityNotice />}
-            <Link className={styles.detailsLink} to="#inside">Рассмотреть комплект <span aria-hidden="true">↓</span></Link>
+            <Link className={styles.detailsLink} to="#inside">Рассмотреть комплект <ArrowIcon direction="down" /></Link>
           </div>
         </div>
       </article>

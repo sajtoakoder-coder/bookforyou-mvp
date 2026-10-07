@@ -6,6 +6,10 @@ for (const width of [375, 768, 1024, 1575]) {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     const giftImage = page.locator('#gift img')
+    if (width <= 900) {
+      await expect(giftImage).toBeHidden()
+      await expect(page.locator('#keepsake img')).toBeVisible()
+    } else {
     await giftImage.scrollIntoViewIfNeeded()
     await giftImage.evaluate((image: HTMLImageElement) => image.decode())
     await expect(giftImage).toHaveCSS('object-fit', 'cover')
@@ -16,6 +20,7 @@ for (const width of [375, 768, 1024, 1575]) {
     })
     for (const dimension of ['width', 'height', 'top', 'left'] as const) {
       expect(gift.image[dimension]).toBeCloseTo(gift.frame[dimension], 0)
+    }
     }
 
     const preview = page.getByRole('region', { name: 'Деталь комплекта' })

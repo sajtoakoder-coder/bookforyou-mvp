@@ -12,15 +12,16 @@
 .photo { overflow: hidden; align-self: stretch; }
 .photo figure { height: 100%; }
 .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-@media (max-width: 900px) { .copy { padding-block: 4rem; } .copy h2 { font-size: 3.5rem; } }
+@media (max-width: 900px) { .section { border-bottom: 1px solid var(--light-rule); } .copy { padding-block: 4rem; } .copy h2 { font-size: 3.5rem; } }
 @media (max-width: 600px) {
-  .section { grid-template-columns: 1fr; }
+  .section { grid-template-columns: 1fr; border-bottom: 1px solid var(--light-rule); }
   .copy { padding: 4rem 1.5rem 2rem; }
   .copy h2 { max-width: none; font-size: clamp(2.5rem, 12vw, 3rem); }
   .label { margin-bottom: 1.5rem; }
   .offer { margin-top: 2rem; }
   .photo { max-height: none; }
   .photo figure { height: auto; background: transparent; }
-  .photo img { height: auto; aspect-ratio: 1792 / 2400; }
-  .photo { mask-image: linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent); }
+  .photo img { height: auto; aspect-ratio: 4 / 5; object-position: center 55%; }
+  .photo { mask-image: linear-gradient(to bottom, transparent, #000 2rem); }
+  .button { align-items: center; min-height: 44px; }
 }

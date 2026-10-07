@@ -2,7 +2,6 @@ import bookDetailUrl from '../assets/renders/book-client-v3-web.jpg'
 import textileEnvelopeUrl from '../assets/renders/textile-envelope-client-v3-web.jpg'
 import coordinatesCardUrl from '../assets/renders/coordinate-card-client-v3-web.jpg'
 import envelopeDetailUrl from '../assets/renders/paper-envelope-client-v3-web.jpg'
-import fallbackObjectUrl from '../assets/renders/fallback-object.svg'
 import heroKitUrl from '../assets/renders/hero-client-v3-web.jpg'
 
 export interface AssetSource {
@@ -17,7 +16,6 @@ export interface EditionAssetPaths {
   textileEnvelope: AssetSource
   envelope: AssetSource
   coordinatesCard: AssetSource
-  fallback: AssetSource
 }
 
 export interface Edition {
@@ -32,19 +30,12 @@ export interface Edition {
   isCurrent: boolean
 }
 
-export const fallbackAsset: AssetSource = {
-  src: fallbackObjectUrl,
-  width: 1774,
-  height: 887,
-}
-
 const renderAssets: EditionAssetPaths = {
   hero: { src: heroKitUrl, width: 2752, height: 1536 },
   book: { src: bookDetailUrl, width: 1792, height: 2400 },
   textileEnvelope: { src: textileEnvelopeUrl, width: 2752, height: 1536 },
   envelope: { src: envelopeDetailUrl, width: 2752, height: 1536 },
   coordinatesCard: { src: coordinatesCardUrl, width: 2752, height: 1536 },
-  fallback: fallbackAsset,
 }
 
 export const collection: readonly Edition[] = [

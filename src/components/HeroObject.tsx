@@ -1,5 +1,5 @@
 import { useState, type JSX } from 'react'
-import { fallbackAsset, type AssetSource } from '../data/editions'
+import type { AssetSource } from '../data/editions'
 import styles from './HeroObject.module.css'
 
 interface HeroObjectProps {
@@ -11,18 +11,27 @@ interface HeroObjectProps {
 }
 
 export default function HeroObject({ asset, alt, priority = false, ambient = false, onReady }: HeroObjectProps): JSX.Element {
-  const [failedSrc, setFailedSrc] = useState<string | null>(null)
-  const showFallback = failedSrc === asset.src
-  const image = showFallback ? fallbackAsset : asset
+  return <Photograph key={asset.src} asset={asset} alt={alt} priority={priority} ambient={ambient} onReady={onReady} />
+}
+
+function Photograph({ asset, alt, priority, ambient, onReady }: HeroObjectProps): JSX.Element {
+  const [attempt, setAttempt] = useState(0)
+  const [failed, setFailed] = useState(false)
+  const [generation, setGeneration] = useState(0)
+  const retry = generation * 2 + attempt
+  const src = retry ? `${asset.src}${asset.src.includes('?') ? '&' : '?'}photo_retry=${retry}` : asset.src
 
   return (
-    <figure className={styles.object}>
-      <img
+    <figure className={styles.object} data-failed={failed || undefined} style={failed ? { aspectRatio: `${asset.width} / ${asset.height}` } : undefined}>
+      {failed ? <div className={styles.error} role="status">
+        <p>{alt}</p><p>Фото не загрузилось.</p>
+        <button type="button" onClick={() => { setGeneration(value => value + 1); setAttempt(0); setFailed(false) }}>Загрузить фото ещё раз</button>
+      </div> : <img
         className={`${styles.image} ${ambient ? styles.ambient : ''}`}
-        src={image.src}
+        src={src}
         alt={alt}
-        width={image.width}
-        height={image.height}
+        width={asset.width}
+        height={asset.height}
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : undefined}
         decoding="async"
@@ -32,9 +41,10 @@ export default function HeroObject({ asset, alt, priority = false, ambient = fal
           else onReady()
         } : undefined}
         onError={() => {
-          if (!showFallback && asset.src !== fallbackAsset.src) setFailedSrc(asset.src)
+          if (attempt === 0) setAttempt(1)
+          else { setFailed(true); onReady?.() }
         }}
-      />
+      />}
     </figure>
   )
 }

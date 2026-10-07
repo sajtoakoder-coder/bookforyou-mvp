@@ -16,7 +16,7 @@
 .preview { min-width: 0; display: grid; grid-template-rows: auto auto; }
 .visual { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; }
 .photoLayer { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
-.photoLayer[data-active='true'] { z-index: 1; opacity: 1; }
+.photoLayer[data-active='true'] { z-index: 1; opacity: 1; pointer-events: auto; }
 .preview figure { height: 100%; width: 100%; background: transparent; }
 .preview img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .photoLayer[data-part='0'] img { object-position: center 55%; }
@@ -44,10 +44,11 @@
 @media (max-width: 900px) {
   .opening { min-height: 0; display: flex; flex-direction: column; align-items: stretch; overflow: visible; }
   .opening::after { display: none; }
-  .intro { width: 100%; padding: 4rem 1.5rem 2rem; }
+  .intro { order: 1; width: 100%; padding: 2.5rem 1.5rem 2rem; }
   .intro h2 { font-size: clamp(3rem, 11vw, 5rem); }
-  .overview { position: relative; z-index: 0; height: clamp(20rem, 65vw, 34rem); mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent); }
-  .detailIntro { margin-inline: 1.5rem; flex-direction: column; gap: .5rem; padding-block: 2rem; }
+  .overview { order: 0; position: relative; z-index: 0; height: clamp(22rem, 80vw, 36rem); }
+  .overview img { object-position: right center; }
+  .detailIntro { margin: 0 1.5rem 2rem; flex-direction: column; gap: .5rem; padding-block: 1.5rem; }
   .spread { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 4rem; }
   .caption { min-height: 4rem; padding-inline: 1.5rem; gap: 1rem; }
   .choices { padding-inline: 1.5rem; }

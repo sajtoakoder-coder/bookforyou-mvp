@@ -34,10 +34,11 @@ for (const width of widths) {
       if (path === '/') {
         await page.evaluate(() => document.fonts.ready)
         for (const image of await page.locator('main img').all()) {
+          if (!(await image.isVisible())) continue
           await image.evaluate((element) => element.scrollIntoView({ behavior: 'instant', block: 'center' }))
           await expect.poll(() => image.evaluate(async (element: HTMLImageElement) => {
             // decode() also settles for cached images and rejects for broken ones.
-            // Retry allows the component's error handler to swap in its fallback.
+            // Retry allows the component's error handler to re-request the photo.
             try {
               await element.decode()
               return element.complete && element.naturalWidth > 0
@@ -101,12 +102,11 @@ test('kit detail selector switches the visual with keyboard and no server reques
   await expect(preview.getByRole('img', { name: 'Книга BOOKFORYOU', exact: true })).toBeVisible()
 })
 
-test('image failure shows the static fallback', async ({ page }) => {
-  await page.route('**/hero-client-v3-web.jpg', (route) => route.abort())
+test('image failure provides a retry instead of unrelated artwork', async ({ page }) => {
+  await page.route(/hero-client-v3-web\.jpg(?:\?photo_retry=\d+)?$/, (route) => route.abort())
   await page.goto('/')
-  const hero = page.getByRole('img', { name: /Комплект BOOKFORYOU/ }).first()
-  await expect(hero).toHaveAttribute('src', /^data:image\/svg\+xml/)
-  await expect.poll(() => hero.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0)
+  await expect(page.locator('#hero').getByRole('button', { name: 'Загрузить фото ещё раз' })).toBeVisible()
+  await expect(page.locator('#hero img')).toHaveCount(0)
 })
 
 test('keyboard focus and mobile menu meet control sizing', async ({ page }) => {
