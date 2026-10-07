@@ -42,7 +42,15 @@ export default function RouteEffects(): null {
           observer.unobserve(entry.target)
         }
       }
-    }, { threshold: 0.05 })
+    }, { threshold: 0.05, rootMargin: '0px 0px -24px 0px' })
+
+    function revealFocused(event: FocusEvent) {
+      const block = (event.target as HTMLElement).closest<HTMLElement>('[data-reveal]')
+      if (block) {
+        block.dataset.reveal = 'visible'
+        observer.unobserve(block)
+      }
+    }
 
     function syncMotion() {
       observer.disconnect()
@@ -58,9 +66,11 @@ export default function RouteEffects(): null {
     }
 
     syncMotion()
+    document.addEventListener('focusin', revealFocused)
     motion.addEventListener('change', syncMotion)
     return () => {
       observer.disconnect()
+      document.removeEventListener('focusin', revealFocused)
       motion.removeEventListener('change', syncMotion)
       for (const block of blocks) block.dataset.reveal = ''
     }

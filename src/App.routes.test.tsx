@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { afterEach, describe, expect, it } from 'vitest'
 import App from './App'
@@ -37,7 +37,7 @@ describe('direct routes', () => {
   it('renders the current edition for a direct URL', () => {
     renderAtPath('/edition/001')
     expect(screen.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeInTheDocument()
-    expect(screen.getByText('4 900 ₽')).toBeInTheDocument()
+    expect(within(screen.getByRole('main')).getByText('4 900 ₽')).toBeInTheDocument()
   })
 
   it('renders the collection for a direct URL', () => {

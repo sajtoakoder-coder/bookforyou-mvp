@@ -31,12 +31,12 @@ for (const [path, heading] of legalRoutes) {
 
 test('header and footer navigate to every published route', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'STORY' }).click()
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'Выпуск №001' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
   await expect(page.getByRole('button', { name: /купить|заказать/i })).toHaveCount(0)
   await expect(page.getByRole('link', { name: /купить|заказать/i })).toHaveCount(0)
 
-  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'COLLECTION' }).click()
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'Коллекция' }).click()
   await expect(page).toHaveURL(/\/collection$/)
 
   for (const [path, heading] of legalRoutes) {
@@ -52,11 +52,11 @@ test('header and footer navigate to every published route', async ({ page }) => 
 test('mobile menu navigation remains reachable', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
   await page.goto('/')
-  const menu = page.getByRole('button', { name: 'Меню' })
+  const menu = page.getByRole('button', { name: 'Меню', exact: true })
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
   await menu.click()
   await expect(menu).toHaveAttribute('aria-expanded', 'true')
-  await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'STORY' }).click()
+  await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'Выпуск №001' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
   await expect(page.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeFocused()
@@ -80,9 +80,9 @@ test('mobile collection card opens the edition at its focused heading', async ({
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
 })
 
-test('GIFT navigation opens and focuses the gift section', async ({ page }) => {
+test('gift navigation opens and focuses the gift section', async ({ page }) => {
   await page.goto('/collection')
-  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'GIFT' }).click()
+  await page.getByRole('navigation', { name: 'Разделы сайта' }).getByRole('link', { name: 'В подарок' }).click()
   await expect(page).toHaveURL(/\/#gift$/)
   const gift = page.locator('#gift')
   await expect(gift).toBeInViewport()

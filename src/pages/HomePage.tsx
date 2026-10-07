@@ -1,61 +1,53 @@
-import type { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import HeroObject from '../components/HeroObject'
-import EditorialSection from '../components/EditorialSection'
-import ObjectDetails from '../components/ObjectDetails'
-import AvailabilityNotice from '../components/AvailabilityNotice'
+import KitExplorer from '../components/KitExplorer'
 import { getEditionBySlug } from '../data/editions'
 import styles from './HomePage.module.css'
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   const edition = getEditionBySlug('001')!
-
   return (
     <>
       <section className={styles.hero} aria-labelledby="home-heading">
-        <div className={styles.heroInner}>
-          <div className={styles.heroCopy}>
-            <p className={styles.kicker}>BOOKFORYOU · личный выпуск</p>
-            <h1 id="home-heading"><span>КНИГА</span><span>ДЛЯ ТЕБЯ</span></h1>
-          </div>
-          <div className={styles.heroVisual}>
-            <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority />
-          </div>
-          <div className={styles.heroFooter}>
-            <p className={styles.heroLine}>История, которая окажется рядом в нужный момент.</p>
-            <Link className={styles.heroLink} to={`/edition/${edition.slug}`}>Смотреть выпуск {edition.number} <span aria-hidden="true">↗</span></Link>
-            <div className={styles.releasePlaque} data-numeric=""><p>{edition.number} · {edition.price}</p><AvailabilityNotice /></div>
-          </div>
+        <div className={styles.heroVisual}>
+          <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, коробка, конверт и карточка с координатами" priority />
+        </div>
+        <div className={styles.heroCopy}>
+          <p className={styles.introduction}>Независимый книжный проект</p>
+          <h1 id="home-heading" aria-label="КНИГА ДЛЯ ТЕБЯ">Книга.<br />Для тебя.</h1>
+          <p className={styles.description}>Для того, кто ты сегодня.<br />Одна история. И кое-что личное внутри.</p>
+          <Link className={styles.button} to="/edition/001">Смотреть выпуск №001 <span aria-hidden="true">↗</span></Link>
+          <div className={styles.release}><p>№001 · 4 900 ₽</p><span>СКОРО БУДЕТ ДОСТУПНО</span></div>
+        </div>
+        <div className={styles.heroFoot}><span>Книга · коробка · конверт · координаты</span><Link to="/#inside">Рассмотреть ближе <span aria-hidden="true">↓</span></Link></div>
+      </section>
+
+      <section className={styles.statement} aria-label="Первый выпуск">
+        <p>Первый выпуск</p>
+        <div data-reveal=""><h2>Не всякую книгу<br />выбирают по названию.</h2><p>Книга приходит не с ответом, а в нужный момент. BOOKFORYOU начинается с человека — с того, что он переживает, ищет и о чём пока не говорит.</p></div>
+      </section>
+
+      <KitExplorer edition={edition} />
+
+      <section id="gift" className={styles.gift} aria-label="Книга, которую проще передать, чем объяснить">
+        <div className={styles.giftImage}><HeroObject asset={edition.assetPaths.envelope} alt="Бордовый запечатанный конверт BOOKFORYOU" /></div>
+        <div className={styles.giftCopy} data-reveal="">
+          <p>BOOKFORYOU для другого</p>
+          <h2>Книга, которую проще передать, чем объяснить</h2>
+          <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
+          <p>Книга и запечатанный конверт — личное послание. Дальше остаются только человек и история.</p>
+          <Link className={styles.textLink} to="/edition/001">Посмотреть комплект <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
-
-      <section className={styles.launchBand} aria-label="Первый выпуск">
-        <p>Первый выпуск · {edition.number}</p>
-        <p>Книга приходит не с ответом, а в нужный момент.</p>
-        <span aria-hidden="true">Читать медленнее</span>
-      </section>
-
-      <ObjectDetails edition={edition} />
-
-      <EditorialSection id="gift" eyebrow="Для близкого человека" title="Книга, которую проще передать, чем объяснить" dark>
-        <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
-        <p>Книга, запечатанный конверт и координаты складываются в личное послание — без готовых объяснений за вас.</p>
-      </EditorialSection>
-
-      <EditorialSection eyebrow="Редакционный выбор" title="Почему эта книга здесь">
-        <p>Каждый выпуск BOOKFORYOU начинается с вопроса о человеке, для которого может оказаться важна история.</p>
-        <p>{edition.curatorText}</p>
-      </EditorialSection>
 
       <section className={styles.curator} aria-labelledby="curator-heading">
-        <div className={styles.curatorInner} data-reveal="">
-          <p className={styles.curatorEyebrow}>Куратор</p>
-          <div>
-            <h2 id="curator-heading">Кто выбирает книги</h2>
-            <p className={styles.curatorName}>Рита Ленских</p>
-          </div>
-          <blockquote>Я много лет занималась кастингом в кино — искала человека для истории. BOOKFORYOU в каком-то смысле продолжает эту работу. Только теперь я ищу историю для человека.</blockquote>
-        </div>
+        <div><p>Редакционный выбор</p><h2 id="curator-heading">Кто выбирает книги</h2><p className={styles.signature}>Рита Ленских</p></div>
+        <div data-reveal=""><blockquote>«Я много лет занималась кастингом в кино — искала человека для истории. BOOKFORYOU в каком-то смысле продолжает эту работу. Только теперь я ищу историю для человека».</blockquote><h3>Почему эта книга здесь</h3><p>У каждого выпуска будет свой авторский текст куратора. Название и история первого выпуска будут объявлены отдельно.</p></div>
+      </section>
+
+      <section className={styles.collection} aria-labelledby="home-collection-heading">
+        <div data-reveal=""><p>Коллекция BOOKFORYOU</p><h2 id="home-collection-heading">История начинается<br />с первого выпуска.</h2><Link className={styles.button} to="/collection">Смотреть коллекцию <span aria-hidden="true">↗</span></Link></div>
+        <div className={styles.issueNumber} aria-hidden="true">001</div>
       </section>
     </>
   )

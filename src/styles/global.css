@@ -88,12 +88,12 @@ p { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {
-    transition: opacity var(--motion-slow) ease-out, transform var(--motion-slow) ease-out;
+    transition: opacity var(--motion-reveal) var(--ease-out), transform var(--motion-reveal) var(--ease-out);
   }
 
   [data-reveal='pending'] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
 }
 

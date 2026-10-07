@@ -27,7 +27,7 @@
 .release { display: none; }
 
 .mobileRelease {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.09em;
   white-space: nowrap;
@@ -45,7 +45,8 @@
 
 .link:hover,
 .mobileLink:hover { opacity: 0.72; }
-.link[aria-current='page'] { border-bottom: 1px solid var(--copper); color: var(--paper); }
+.link[aria-current='page'],
+.mobileLink[aria-current='page'] { border-bottom: 1px solid var(--copper); color: var(--paper); }
 
 .menuButton {
   display: inline-flex;
@@ -68,24 +69,74 @@
 .menuButton:active { transform: scale(0.96); }
 .menuLine { width: 1.15rem; height: 1px; background: currentColor; }
 
-.mobileNav {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  display: grid;
-  padding: var(--space-2) clamp(1rem, 4vw, 4rem) var(--space-3);
-  border-bottom: 1px solid rgb(244 237 226 / 0.24);
-  background: var(--ink-wine);
-  animation: menuEnter var(--motion-normal) ease both;
+.drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(32rem, 100%);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: max(1.75rem, env(safe-area-inset-top)) clamp(1.5rem, 4vw, 3rem) max(2rem, env(safe-area-inset-bottom));
+  border: 0;
+  border-left: 1px solid rgb(244 237 226 / .18);
+  background: var(--wine);
+  color: var(--paper);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 260ms ease-in, opacity 260ms ease-in, display 380ms allow-discrete, overlay 380ms allow-discrete;
 }
 
-.mobileNav[hidden] { display: none; }
-.mobileLink { justify-content: flex-start; width: fit-content; padding: 0.5rem 0; }
+.drawer[open] {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 380ms var(--ease-out), opacity 380ms var(--ease-out), display 380ms allow-discrete, overlay 380ms allow-discrete;
+}
+.drawer::backdrop {
+  background: rgb(15 4 8 / .55);
+  opacity: 0;
+  transition: opacity 260ms ease-in, display 380ms allow-discrete, overlay 380ms allow-discrete;
+}
+.drawer[open]::backdrop { opacity: 1; transition-timing-function: ease-out; }
+.drawerHead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.drawerHead h2 { margin: 0; font-family: var(--font-body); font-size: .875rem; font-weight: 400; letter-spacing: 0; }
+.closeButton {
+  position: relative;
+  flex: none;
+  width: var(--control-height);
+  height: var(--control-height);
+  padding: 0;
+  border: 1px solid rgb(244 237 226 / .4);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+.closeButton:hover { background: rgb(244 237 226 / .1); }
+.closeButton span { position: absolute; top: 50%; left: 25%; width: 50%; height: 1px; background: currentColor; transform: rotate(45deg); }
+.closeButton span:last-child { transform: rotate(-45deg); }
+.mobileNav { display: grid; gap: 1.5rem; margin-block: clamp(3rem, 9vh, 6rem); }
+.mobileLink {
+  justify-content: flex-start;
+  width: fit-content;
+  padding: .25rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+.drawerFoot { margin-top: auto; padding-top: 2rem; border-top: 1px solid rgb(244 237 226 / .3); font-size: .8125rem; }
+.drawerFoot p:first-child { font-size: .75rem; font-weight: 600; letter-spacing: .075em; }
+.drawerFoot div { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; font-variant-numeric: tabular-nums; }
 
-@keyframes menuEnter {
-  from { opacity: 0; transform: translateY(-0.5rem); }
-  to { opacity: 1; transform: translateY(0); }
+@starting-style {
+  .drawer[open] { opacity: 0; transform: translateX(100%); }
+  .drawer[open]::backdrop { opacity: 0; }
 }
 
 @media (min-width: 1024px) {
@@ -106,5 +157,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mobileNav { animation: none; }
+  .drawer, .drawer[open], .drawer::backdrop, .drawer[open]::backdrop { transition: none; transition-duration: 0s !important; }
 }

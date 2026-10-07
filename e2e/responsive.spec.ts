@@ -13,18 +13,15 @@ for (const width of [375, 1440]) {
     await expect(title).toBeVisible()
     await expect(page.locator('main').getByText('№001 · 4 900 ₽')).toBeInViewport()
     await expect(page.getByRole('button', { name: /купить|заказать/i })).toHaveCount(0)
-    const lines = await title.locator('span').evaluateAll((spans) => spans.map((span) => {
+    const lines = await title.evaluate((heading) => {
       const range = document.createRange()
-      range.selectNodeContents(span)
-      const text = range.getBoundingClientRect()
-      const box = span.getBoundingClientRect()
-      return { textLeft: text.left, textRight: text.right, boxLeft: box.left, boxRight: box.right }
-    }))
+      range.selectNodeContents(heading)
+      return Array.from(range.getClientRects()).filter((rect) => rect.width > 0).map((rect) => ({ textLeft: rect.left, textRight: rect.right }))
+    })
+    expect(lines.length).toBeGreaterThan(0)
     for (const line of lines) {
       expect(line.textLeft).toBeGreaterThanOrEqual(0)
       expect(line.textRight).toBeLessThanOrEqual(width)
-      expect(line.textLeft).toBeGreaterThanOrEqual(line.boxLeft)
-      expect(line.textRight).toBeLessThanOrEqual(line.boxRight)
     }
   })
 }
@@ -81,22 +78,22 @@ test('reduced motion stops the ambient hero animation', async ({ page }) => {
   }
 })
 
-test('editorial blocks reveal on scroll and stay visible when motion preference changes', async ({ page }) => {
+test('kit detail selector switches the visual with keyboard and no server request', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
-  await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('/')
-  const block = page.locator('[data-reveal]').first()
-  await expect(block).toHaveAttribute('data-reveal', 'pending')
-  await expect(block).toHaveCSS('opacity', '0')
-  await block.scrollIntoViewIfNeeded()
-  await expect(block).toHaveAttribute('data-reveal', 'visible')
-  await expect(block).toHaveCSS('opacity', '1')
-  await expect(block).toHaveCSS('transform', 'none')
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  for (const remaining of await page.locator('[data-reveal]').all()) {
-    await expect(remaining).toHaveAttribute('data-reveal', 'visible')
-    await expect(remaining).toHaveCSS('opacity', '1')
-  }
+  const preview = page.getByRole('region', { name: 'Деталь комплекта' })
+  const book = page.getByRole('button', { name: '01 КНИГА', exact: true })
+  const coordinates = page.getByRole('button', { name: '04 КАРТОЧКА С КООРДИНАТАМИ', exact: true })
+  await expect(book).toHaveAttribute('aria-pressed', 'true')
+  await coordinates.scrollIntoViewIfNeeded()
+  await coordinates.focus()
+  await page.keyboard.press('Enter')
+  await expect(coordinates).toHaveAttribute('aria-pressed', 'true')
+  await expect(book).toHaveAttribute('aria-pressed', 'false')
+  await expect(preview.getByRole('img', { name: 'Карточка с координатами BOOKFORYOU', exact: true })).toBeVisible()
+  await expect(preview).toContainText('Свой маршрут по тексту.')
+  await book.click()
+  await expect(preview.getByRole('img', { name: 'Книга BOOKFORYOU', exact: true })).toBeVisible()
 })
 
 test('image failure shows the static fallback', async ({ page }) => {
