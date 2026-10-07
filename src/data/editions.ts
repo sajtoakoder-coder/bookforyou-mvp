@@ -51,8 +51,9 @@ export const collection: readonly Edition[] = [
   {
     slug: '001',
     number: '№001',
-    title: 'Название книги будет объявлено',
-    author: 'Автор будет объявлен',
+    // Book metadata comes from chapter 10 of the client's supplied storyboard.
+    title: 'Гений',
+    author: 'Теодор Драйзер',
     price: '4 900 ₽',
     audienceLine: 'Описание выпуска будет добавлено',
     curatorText: 'Текст куратора будет добавлен',

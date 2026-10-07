@@ -19,6 +19,8 @@ describe('edition data', () => {
   it('finds BOOKFORYOU №001 by slug with its exact price', () => {
     expect(getEditionBySlug('001')?.price).toBe('4 900 ₽')
     expect(getEditionBySlug('001')?.isCurrent).toBe(true)
+    expect(getEditionBySlug('001')?.title).toBe('Гений')
+    expect(getEditionBySlug('001')?.author).toBe('Теодор Драйзер')
   })
 
   it('keeps the collection finite and returns nothing for unknown slugs', () => {
@@ -36,7 +38,7 @@ describe('direct routes', () => {
 
   it('renders the current edition for a direct URL', () => {
     renderAtPath('/edition/001')
-    expect(screen.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Гений' })).toBeInTheDocument()
     expect(within(screen.getByRole('main')).getByText('4 900 ₽')).toBeInTheDocument()
   })
 

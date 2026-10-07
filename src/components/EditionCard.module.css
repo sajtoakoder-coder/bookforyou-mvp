@@ -2,6 +2,7 @@
 .copy { min-width: 0; padding: 2rem 1.25rem; }
 .status { margin: 0; color: rgb(244 237 226 / .7); font-size: .75rem; font-weight: 600; letter-spacing: .03em; }
 .current h2 { margin-block: 2rem 1.5rem; font-family: var(--font-body); font-size: .85rem; font-weight: 600; letter-spacing: .02em; }
+.author { max-width: 32ch; margin-bottom: .75rem; font-size: 1rem; color: var(--text-muted-light); line-height: 1.5; }
 .title { max-width: 13ch; margin-bottom: 2rem; font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 6rem); letter-spacing: -0.04em; line-height: 0.95; }
 .price { margin-bottom: 0.8rem; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
 .copy a { display: flex; width: fit-content; justify-content: flex-start; gap: 2rem; margin-top: 1rem; border-bottom: 1px solid currentColor; color: inherit; font-size: 0.8rem; text-decoration: none; }

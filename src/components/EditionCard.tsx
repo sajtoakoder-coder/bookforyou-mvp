@@ -22,6 +22,7 @@ export default function EditionCard({ edition }: { edition: Edition }): JSX.Elem
       <div className={styles.copy}>
         <p className={styles.status}>Текущий выпуск</p>
         <h2 id={headingId}>BOOKFORYOU {edition.number}</h2>
+        <p className={styles.author}>{edition.author}</p>
         <p className={styles.title}>{edition.title}</p>
         <p className={styles.price}>{edition.price}</p>
         <AvailabilityNotice />

@@ -9,7 +9,7 @@ const legalRoutes = [
 
 const publicRoutes = [
   ['/', 'КНИГА ДЛЯ ТЕБЯ'],
-  ['/edition/001', 'Название книги будет объявлено'],
+  ['/edition/001', 'Гений'],
   ['/collection', 'Коллекция'],
 ] as const
 
@@ -59,18 +59,21 @@ test('mobile menu navigation remains reachable', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'Выпуск №001' }).click()
   await expect(page).toHaveURL(/\/edition\/001$/)
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
-  await expect(page.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })).toBeFocused()
+  await expect(page.getByRole('heading', { level: 1, name: 'Гений' })).toBeFocused()
 })
 
 test('mobile collection card opens the edition at its focused heading', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
   await page.goto('/collection')
+  await expect(page.getByRole('heading', { level: 1, name: 'Коллекция' })).toBeVisible()
   const link = page.getByRole('link', { name: 'Узнать о выпуске' })
-  await link.scrollIntoViewIfNeeded()
+  // Short edition titles can leave the link in the opening viewport.
+  // Explicitly center it so this test still exercises the route's scroll reset.
+  await link.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }))
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
   await link.click()
   await expect(page).toHaveURL(/\/edition\/001$/)
-  const heading = page.getByRole('heading', { level: 1, name: 'Название книги будет объявлено' })
+  const heading = page.getByRole('heading', { level: 1, name: 'Гений' })
   await expect(heading).toBeFocused()
   await expect(heading).toBeInViewport()
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)

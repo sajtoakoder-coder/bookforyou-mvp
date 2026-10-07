@@ -15,6 +15,8 @@ it('marks №001 as the current release in a finite collection', () => {
   const current = screen.getByRole('article', { name: 'BOOKFORYOU №001' })
   expect(within(current).getByRole('img')).toBeVisible()
   expect(within(current).getByText('4 900 ₽')).toBeVisible()
+  expect(within(current).getByText('Гений')).toBeVisible()
+  expect(within(current).getByText('Теодор Драйзер')).toBeVisible()
   expect(within(current).getByRole('link', { name: /Узнать о выпуске/ })).toHaveAttribute('href', '/edition/001')
   for (const number of ['№002', '№003']) {
     const row = screen.getByRole('article', { name: `BOOKFORYOU ${number}` })
