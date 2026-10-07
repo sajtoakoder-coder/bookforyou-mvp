@@ -29,14 +29,16 @@ for (const width of [375, 768, 1024, 1575]) {
         const bounds = image.getBoundingClientRect()
         const figure = image.closest('figure')!.getBoundingClientRect()
         return {
-          actualRatio: bounds.width / bounds.height,
-          nativeRatio: image.naturalWidth / image.naturalHeight,
+          fit: getComputedStyle(image).objectFit,
+          imageWidth: bounds.width,
+          figureWidth: figure.width,
           imageHeight: bounds.height,
           figureHeight: figure.height,
           background: getComputedStyle(image.closest('figure')!).backgroundColor,
         }
       })
-      expect(frame.actualRatio).toBeCloseTo(frame.nativeRatio, 2)
+      expect(frame.fit).toBe('cover')
+      expect(frame.imageWidth).toBeCloseTo(frame.figureWidth, 0)
       expect(frame.imageHeight).toBeCloseTo(frame.figureHeight, 0)
       expect(frame.background).toBe('rgba(0, 0, 0, 0)')
       expect((await preview.boundingBox())!.height).toBeCloseTo(initialHeight, 0)

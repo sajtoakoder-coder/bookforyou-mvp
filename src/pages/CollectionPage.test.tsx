@@ -14,6 +14,7 @@ it('marks №001 as the current release in a finite collection', () => {
   expect(screen.getAllByRole('article')).toHaveLength(3)
   const current = screen.getByRole('article', { name: 'BOOKFORYOU №001' })
   expect(within(current).getByRole('img')).toBeVisible()
+  expect(current.querySelector('[aria-hidden="true"]:not(a span)')).toBeNull()
   expect(within(current).getByText('4 900 ₽')).toBeVisible()
   expect(within(current).getByText('Гений')).toBeVisible()
   expect(within(current).getByText('Теодор Драйзер')).toBeVisible()

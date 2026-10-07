@@ -55,7 +55,8 @@ export const collection: readonly Edition[] = [
     title: 'Гений',
     author: 'Теодор Драйзер',
     price: '4 900 ₽',
-    audienceLine: 'Описание выпуска будет добавлено',
+    // Audience line is also supplied in chapter 10 of the client storyboard.
+    audienceLine: 'Для того, кто не хочет прожить чужую жизнь.',
     curatorText: 'Текст куратора будет добавлен',
     assetPaths: renderAssets,
     isCurrent: true,

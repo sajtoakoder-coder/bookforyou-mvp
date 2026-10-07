@@ -1,22 +1,21 @@
 import { expect, test } from '@playwright/test'
 
 for (const width of [375, 768, 1024, 1575]) {
-  test(`kit photographs dissolve at the edges without blurring at ${width}px`, async ({ page }) => {
+  test(`kit photographs fill integrated spreads without inset feathering at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     const overview = page.locator('#inside > div').first().locator('figure')
     const detail = page.locator('#kit-preview figure')
     for (const figure of [overview, detail]) {
-      const mask = await figure.evaluate(element => ({ image: getComputedStyle(element).maskImage, composite: getComputedStyle(element).maskComposite }))
-      expect(mask.image).toContain('linear-gradient(to right')
-      expect(mask.image).toContain('linear-gradient(')
-      expect(mask.composite).toContain('intersect')
+      await expect(figure).toHaveCSS('mask-image', 'none')
       await expect(figure.locator('img')).toHaveCSS('filter', 'none')
+      await expect(figure.locator('img')).toHaveCSS('object-fit', 'cover')
     }
+    expect((await overview.boundingBox())!.width).toBeCloseTo(width, 0)
     for (const number of ['01', '02', '03', '04']) {
       await page.getByRole('button', { name: new RegExp(`^${number} `) }).click()
-      expect(await detail.evaluate(element => getComputedStyle(element).maskImage)).toContain('linear-gradient(to right')
+      await expect(detail).toHaveCSS('mask-image', 'none')
       await expect(detail.locator('img')).toHaveCSS('filter', 'none')
     }
   })

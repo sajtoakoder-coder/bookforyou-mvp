@@ -30,7 +30,6 @@ export default function EditionCard({ edition }: { edition: Edition }): JSX.Elem
       </div>
       <div className={styles.visual}>
         <HeroObject asset={edition.assetPaths.hero} alt={`Комплект BOOKFORYOU ${edition.number}`} />
-        <span aria-hidden="true">{edition.number.replace('№', '')}</span>
       </div>
     </article>
   )
