@@ -38,15 +38,17 @@ for (const width of [375, 768, 1440]) {
     await opening.screenshot({ path: `test-results/composition-kit-opening-${width}.png` })
     const preview = page.locator('#kit-preview')
     await preview.scrollIntoViewIfNeeded()
-    await preview.locator('img').evaluate((img: HTMLImageElement) => img.decode())
-    const frame = (await preview.locator('figure').boundingBox())!
+    const active = preview.locator('[data-active="true"]')
+    await active.locator('img').evaluate((img: HTMLImageElement) => img.decode())
+    const frame = (await active.locator('figure').boundingBox())!
     expect(frame.width).toBeGreaterThanOrEqual(width * .5)
-    expect(frame.height).toBeGreaterThan(440)
+    expect(frame.height).toBeCloseTo(frame.width, 0)
     await preview.locator('..').screenshot({ path: `test-results/composition-kit-detail-${width}.png` })
     for (const number of ['02', '03', '04']) {
       await page.getByRole('button', { name: new RegExp(`^${number} `) }).click()
-      await preview.locator('img').evaluate((img: HTMLImageElement) => img.decode())
-      await preview.locator('figure').screenshot({ path: `test-results/composition-kit-part-${number}-${width}.png` })
+      await expect(preview).toHaveAttribute('aria-busy', 'false')
+      await active.locator('img').evaluate((img: HTMLImageElement) => img.decode())
+      await active.locator('figure').screenshot({ path: `test-results/composition-kit-part-${number}-${width}.png` })
     }
   })
 }

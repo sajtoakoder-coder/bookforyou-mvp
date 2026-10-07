@@ -7,9 +7,10 @@ interface HeroObjectProps {
   alt: string
   priority?: boolean
   ambient?: boolean
+  onReady?: () => void
 }
 
-export default function HeroObject({ asset, alt, priority = false, ambient = false }: HeroObjectProps): JSX.Element {
+export default function HeroObject({ asset, alt, priority = false, ambient = false, onReady }: HeroObjectProps): JSX.Element {
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
   const showFallback = failedSrc === asset.src
   const image = showFallback ? fallbackAsset : asset
@@ -25,6 +26,11 @@ export default function HeroObject({ asset, alt, priority = false, ambient = fal
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : undefined}
         decoding="async"
+        onLoad={onReady ? event => {
+          const image = event.currentTarget
+          if (typeof image.decode === 'function') void image.decode().then(onReady, onReady)
+          else onReady()
+        } : undefined}
         onError={() => {
           if (!showFallback && asset.src !== fallbackAsset.src) setFailedSrc(asset.src)
         }}

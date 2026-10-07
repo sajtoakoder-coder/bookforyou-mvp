@@ -22,7 +22,8 @@ for (const width of [375, 768, 1024, 1575]) {
     const initialHeight = (await preview.boundingBox())!.height
     for (const number of ['01', '02', '03', '04']) {
       await page.getByRole('button', { name: new RegExp(`^${number} `) }).click()
-      const image = preview.locator('img')
+      await expect(preview).toHaveAttribute('aria-busy', 'false')
+      const image = preview.locator('[data-active="true"] img')
       await image.scrollIntoViewIfNeeded()
       const frame = await image.evaluate(async (image: HTMLImageElement) => {
         await image.decode()

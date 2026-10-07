@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Edition } from '../data/editions'
 import HeroObject from './HeroObject'
 import styles from './KitExplorer.module.css'
@@ -11,7 +11,12 @@ export default function KitExplorer({ edition }: { edition: Edition }) {
     { name: 'КАРТОЧКА С КООРДИНАТАМИ', title: 'Свой маршрут по тексту.', description: 'Страница. Строка. Абзац. Координаты приглашают к интеллектуальной игре с литературой — без предсказаний и готовых ответов.', asset: edition.assetPaths.coordinatesCard, alt: 'Карточка с координатами BOOKFORYOU' },
   ]
   const [selected, setSelected] = useState(0)
-  const part = parts[selected]
+  const [displayed, setDisplayed] = useState(0)
+  const [ready, setReady] = useState<number[]>([])
+  useEffect(() => {
+    if (selected !== displayed && ready.includes(selected)) setDisplayed(selected)
+  }, [selected, displayed, ready])
+  const part = parts[displayed]
   return (
     <section id="inside" className={styles.section} aria-labelledby="object-details-heading">
       <div className={styles.opening}>
@@ -20,9 +25,13 @@ export default function KitExplorer({ edition }: { edition: Edition }) {
       </div>
       <div className={styles.detailIntro}><p>Каждый предмет — часть истории.</p><p>Выберите деталь, чтобы рассмотреть её.</p></div>
       <div className={styles.spread} data-reveal="">
-        <div className={`${styles.preview} ${selected === 0 ? styles.portrait : ''}`} id="kit-preview" role="region" aria-label="Деталь комплекта" aria-live="polite">
-          <HeroObject key={part.name} asset={part.asset} alt={part.alt} />
-          <div className={styles.caption}><span>{String(selected + 1).padStart(2, '0')} / 04</span><p>{part.title}</p></div>
+        <div className={styles.preview} id="kit-preview" role="region" aria-label="Деталь комплекта" aria-live="polite" aria-busy={selected !== displayed}>
+          <div className={styles.visual}>
+            {parts.map((item, index) => <div key={item.name} className={styles.photoLayer} data-part={index} data-active={displayed === index} aria-hidden={displayed !== index}>
+              <HeroObject asset={item.asset} alt={item.alt} onReady={() => setReady(loaded => loaded.includes(index) ? loaded : [...loaded, index])} />
+            </div>)}
+          </div>
+          <div className={styles.caption}><span>{String(displayed + 1).padStart(2, '0')} / 04</span><p>{part.title}</p></div>
         </div>
         <div className={styles.choices}>
           {parts.map((item, index) => <article key={item.name} className={selected === index ? styles.active : ''}>

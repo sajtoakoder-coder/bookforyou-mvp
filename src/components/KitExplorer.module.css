@@ -13,10 +13,15 @@
 .spread { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); max-width: 110rem; margin-inline: auto; padding-bottom: 5rem; align-items: center; }
 .choices { min-width: 0; padding: 0 5vw; }
 .choices button > span, .choices article > p { overflow-wrap: anywhere; }
-.preview { min-width: 0; display: grid; grid-template-rows: clamp(40rem, 60vw, 60rem) auto; }
+.preview { min-width: 0; display: grid; grid-template-rows: auto auto; }
+.visual { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; }
+.photoLayer { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.photoLayer[data-active='true'] { z-index: 1; opacity: 1; }
 .preview figure { height: 100%; width: 100%; background: transparent; }
 .preview img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.portrait img { object-position: center 55%; }
+.photoLayer[data-part='0'] img { object-position: center 55%; }
+.photoLayer[data-part='1'] img { object-position: 58% center; }
+.photoLayer[data-part='3'] img { object-position: 55% center; }
 .caption { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; min-height: 5rem; padding: 1.5rem 2rem 0 5vw; }
 .caption span { flex: none; font-size: .8125rem; font-variant-numeric: tabular-nums; }
 .caption p { min-width: 0; margin: 0; font-size: .875rem; overflow-wrap: anywhere; }
@@ -44,11 +49,9 @@
   .overview { position: relative; z-index: 0; height: clamp(20rem, 65vw, 34rem); mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent); }
   .detailIntro { margin-inline: 1.5rem; flex-direction: column; gap: .5rem; padding-block: 2rem; }
   .spread { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 4rem; }
-  .preview { grid-template-rows: clamp(28rem, 110vw, 52rem) auto; }
   .caption { min-height: 4rem; padding-inline: 1.5rem; gap: 1rem; }
   .choices { padding-inline: 1.5rem; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .preview img { animation: detailFade 240ms ease-out; }
-  @keyframes detailFade { from { opacity: .25; } to { opacity: 1; } }
+  .photoLayer { transition: opacity 300ms var(--ease-out); }
 }

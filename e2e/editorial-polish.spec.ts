@@ -6,7 +6,7 @@ for (const width of [375, 768, 1024, 1575]) {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     const overview = page.locator('#inside > div').first().locator('figure')
-    const detail = page.locator('#kit-preview figure')
+    const detail = page.locator('#kit-preview [data-active="true"] figure')
     for (const figure of [overview, detail]) {
       await expect(figure).toHaveCSS('mask-image', 'none')
       await expect(figure.locator('img')).toHaveCSS('filter', 'none')
@@ -15,6 +15,7 @@ for (const width of [375, 768, 1024, 1575]) {
     expect((await overview.boundingBox())!.width).toBeCloseTo(width, 0)
     for (const number of ['01', '02', '03', '04']) {
       await page.getByRole('button', { name: new RegExp(`^${number} `) }).click()
+      await expect(page.locator('#kit-preview')).toHaveAttribute('aria-busy', 'false')
       await expect(detail).toHaveCSS('mask-image', 'none')
       await expect(detail.locator('img')).toHaveCSS('filter', 'none')
     }
