@@ -47,10 +47,8 @@
 .links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; max-width: 36rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid rgb(33 22 16 / .2); color: var(--copper); font-size: .75rem; }
 .links a { display: inline; min-height: 0; color: inherit; }
 @media (min-width: 801px) {
-  .releasePhoto::after, .ritualPhoto::after, .curatorPhoto::after { position: absolute; z-index: 1; inset: 0; content: ''; pointer-events: none; }
+  .releasePhoto::after { position: absolute; z-index: 1; inset: 0; content: ''; pointer-events: none; }
   .releasePhoto::after { background: linear-gradient(90deg, var(--ink-wine) 0%, transparent 19%); }
-  .ritualPhoto::after { background: linear-gradient(90deg, var(--wine-deep) 0%, transparent 15%, transparent 85%, var(--wine-deep) 100%); }
-  .curatorPhoto::after { background: linear-gradient(90deg, var(--paper) 0%, transparent 15%, transparent 88%, var(--paper) 100%); }
 }
 @media (max-width: 800px) { .release, .ritual, .close { display: flex; min-height: 0; flex-direction: column; } .releaseCopy, .ritualCopy, .closeCopy { padding: 4.5rem 1.5rem; } .release h1, .ritual h2, .close h2 { font-size: clamp(3.75rem, 18vw, 5.4rem); } .brand { margin-bottom: 3.5rem; } .releasePhoto, .ritualPhoto, .curatorPhoto { min-height: 0; height: clamp(20rem, 105vw, 34rem); margin: 0; } .releasePhoto { order: 2; } .releaseCopy { order: 1; } .ritualPhoto { order: 2; } .ritualCopy { order: 1; } .curatorPhoto { order: 2; } .closeCopy { order: 1; } .releasePhoto img { object-position: 67% center; } .ritualPhoto img { object-position: 48% center; } .curatorPhoto img { object-position: 55% center; } .releasePhoto, .ritualPhoto, .curatorPhoto { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent); mask-image: linear-gradient(to bottom, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent); } .ritualPhoto { margin-top: -1rem; } .ritualCopy { padding-bottom: 2rem; } .closeCopy { padding-bottom: 2rem; } .links { margin-top: 2.5rem; } }
 @media (max-width: 420px) { .releaseCopy, .ritualCopy, .closeCopy { padding-inline: 1.25rem; } .release h1 { font-size: clamp(3.6rem, 17vw, 4.7rem); } .lead { font-size: 1.35rem; } .primaryButton, .secondaryButton { width: 100%; } }
