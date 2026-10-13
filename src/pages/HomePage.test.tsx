@@ -1,51 +1,41 @@
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { afterEach, expect, it } from 'vitest'
 import App from '../App'
 
 afterEach(() => { cleanup(); window.history.pushState({}, '', '/') })
 
-it('leads with the campaign title, release plaque and launch statement', () => {
+it('uses the approved three-screen home sequence and exact release information', () => {
   render(<App />)
-  const title = screen.getByRole('heading', { level: 1, name: 'КНИГА ДЛЯ ТЕБЯ' })
-  expect(title).toBeVisible()
-  expect(title).toHaveTextContent('Книга.Для тебя.')
-  const hero = screen.getByRole('region', { name: 'КНИГА ДЛЯ ТЕБЯ' })
-  expect(within(hero).getByText('№001 · 4 900 ₽')).toBeVisible()
-  expect(within(hero).getByText('СКОРО БУДЕТ ДОСТУПНО')).toBeVisible()
-  expect(within(hero).getByRole('link', { name: 'Смотреть выпуск №001' })).toHaveAttribute('href', '/edition/001')
-  expect(screen.getByRole('region', { name: 'Идея BOOKFORYOU' })).toHaveTextContent('Книга приходит не с ответом, а в нужный момент.')
-  expect(within(hero).queryByRole('button')).not.toBeInTheDocument()
+  expect(Array.from(document.querySelectorAll('main > section')).map(section => section.id)).toEqual(['release', 'ritual', 'curator-close'])
+  expect(screen.getByRole('heading', { level: 1, name: 'Книга.Для тебя.' })).toBeVisible()
+  expect(document.querySelector('#release')).toHaveTextContent('20 экземпляров')
+  expect(screen.getByRole('heading', { name: 'Три вопроса.Одна книга.' })).toBeVisible()
+  expect(screen.getByRole('heading', { name: 'Рита Ленских' })).toBeVisible()
+  expect(screen.queryByText('Книга, которую проще передать, чем объяснить')).not.toBeInTheDocument()
 })
 
-it('follows the client storyboard with separate reading and object chapters', () => {
+it('presents the ritual and opens the same truthful preorder form from both calls to action', () => {
   render(<App />)
-  const sections = Array.from(document.querySelectorAll('main > section')).map(section => section.id)
-  expect(sections).toEqual(['hero', 'idea', 'begin', 'questions', 'how-it-works', 'inside', 'keepsake', 'gift', 'curator', 'first-edition', 'home-collection'])
-  const process = screen.getByRole('region', { name: 'Как это работает' })
-  expect(within(process).getAllByRole('listitem')).toHaveLength(4)
-  expect(screen.getByRole('region', { name: 'Три вопроса. Одна книга.' })).toHaveTextContent('Страница. Строка. Абзац.')
-  const first = screen.getByRole('region', { name: 'Первый выпуск' })
-  expect(within(first).getByText('4 900 ₽')).toBeVisible()
-  expect(within(first).getByRole('heading', { name: '«Гений»' })).toBeVisible()
-  expect(within(first).getByText('Теодор Драйзер')).toBeVisible()
-  expect(within(first).getByRole('img', { name: /Книга BOOKFORYOU/ })).toBeVisible()
-  expect(within(first).getByRole('link', { name: 'Рассмотреть выпуск №001' })).toHaveAttribute('href', '/edition/001')
-  expect(within(screen.getByRole('region', { name: 'Что придёт к вам' })).getByRole('img', { name: /Полный комплект/ })).toBeVisible()
-  expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
-  expect(document.querySelector('main')).not.toHaveTextContent(/Название книги будет объявлено|Автор будет объявлен|Название и автор первого выпуска будут объявлены/)
+  const ritual = screen.getByRole('region', { name: 'Три вопроса.Одна книга.' })
+  expect(within(ritual).getAllByRole('listitem')).toHaveLength(3)
+  expect(within(ritual).getByRole('heading', { name: 'Как открыть' })).toBeVisible()
+  fireEvent.click(screen.getByRole('button', { name: /заказать.*4 900/i }))
+  expect(screen.getByRole('heading', { name: 'Оставить заявку' })).toBeVisible()
+  fireEvent.click(screen.getByRole('button', { name: 'Закрыть форму' }))
+  expect(screen.queryByRole('heading', { name: 'Оставить заявку' })).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Выбрать выпуск №001' }))
+  expect(screen.getByRole('heading', { name: 'Оставить заявку' })).toBeVisible()
+  expect(screen.queryByLabelText(/карта/i)).not.toBeInTheDocument()
 })
 
-it('shows the editorial story, gift destination and every required physical object', () => {
-  window.history.pushState({}, '', '/')
+it('shows the unavailable state rather than pretending that a preorder was accepted', async () => {
   render(<App />)
-  expect(screen.getByRole('heading', { name: 'Почему эта книга здесь' })).toBeVisible()
-  expect(screen.getByRole('button', { name: '01 КНИГА' })).toBeVisible()
-  expect(screen.getByText('ТЕКСТИЛЬНЫЙ КОНВЕРТ')).toBeVisible()
-  expect(screen.queryByText(/коробк/i)).not.toBeInTheDocument()
-  expect(screen.getByText('ЗАПЕЧАТАННЫЙ КОНВЕРТ')).toBeVisible()
-  expect(screen.getByText('КАРТОЧКА С КООРДИНАТАМИ')).toBeVisible()
-  expect(screen.getByRole('heading', { name: 'Книга, которую проще передать, чем объяснить' })).toBeVisible()
-  expect(screen.getByRole('region', { name: 'Книга, которую проще передать, чем объяснить' })).toHaveAttribute('id', 'gift')
-  expect(screen.getByText('Рита Ленских')).toBeVisible()
+  fireEvent.click(screen.getByRole('button', { name: /заказать.*4 900/i }))
+  fireEvent.change(screen.getByLabelText('Имя'), { target: { value: 'Рита' } })
+  fireEvent.change(screen.getByLabelText('Telegram'), { target: { value: '@rita' } })
+  fireEvent.click(screen.getByRole('checkbox'))
+  fireEvent.click(screen.getByRole('button', { name: 'Оставить заявку' }))
+  expect(await screen.findByRole('alert')).toHaveTextContent('Заявки пока не принимаются')
+  expect(screen.getByLabelText('Telegram')).toHaveValue('@rita')
 })

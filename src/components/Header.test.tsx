@@ -24,17 +24,17 @@ describe('Header', () => {
   it('exposes the campaign navigation and release marker', () => {
     renderHeader()
     const navigation = document.querySelector('nav[aria-label="Разделы сайта"]') as HTMLElement
-    for (const label of ['Коллекция', 'Выпуск №001', 'В подарок']) {
+    for (const label of ['Коллекция', 'Выпуск №001', 'Как это работает']) {
       expect(navigation).toHaveTextContent(label)
     }
     expect(screen.getByText('№001 · 4 900 ₽')).toBeInTheDocument()
     expect(screen.getByText('№001', { selector: 'span' })).toBeVisible()
   })
 
-  it('does not mark the gift destination active on the home page without its hash', () => {
+  it('does not mark the ritual destination active on the home page without its hash', () => {
     renderHeader()
-    const gift = document.querySelector('nav[aria-label="Разделы сайта"] a[href="/#gift"]')
-    expect(gift).not.toHaveAttribute('aria-current')
+    const ritual = document.querySelector('nav[aria-label="Разделы сайта"] a[href="/#ritual"]')
+    expect(ritual).not.toHaveAttribute('aria-current')
   })
 
   it('opens and closes the mobile navigation with an accessible button', () => {

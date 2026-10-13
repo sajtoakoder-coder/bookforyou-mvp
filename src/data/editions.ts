@@ -25,6 +25,8 @@ export interface Edition {
   author: string
   price: string
   audienceLine: string
+  audiencePrompt: string
+  run: string
   curatorText: string
   assetPaths: EditionAssetPaths
   isCurrent: boolean
@@ -48,6 +50,8 @@ export const collection: readonly Edition[] = [
     price: '4 900 ₽',
     // Audience line is also supplied in chapter 10 of the client storyboard.
     audienceLine: 'Для того, кто не хочет прожить чужую жизнь.',
+    audiencePrompt: 'Для того, кто хочет реализоваться',
+    run: '20 экземпляров',
     curatorText: 'Текст куратора будет добавлен',
     assetPaths: renderAssets,
     isCurrent: true,
@@ -59,6 +63,8 @@ export const collection: readonly Edition[] = [
     author: 'Автор будет объявлен',
     price: 'Цена будет объявлена',
     audienceLine: 'Описание выпуска будет добавлено',
+    audiencePrompt: 'Для будущего читателя',
+    run: 'Скоро будет доступно',
     curatorText: 'Текст куратора будет добавлен',
     assetPaths: renderAssets,
     isCurrent: false,
@@ -70,6 +76,8 @@ export const collection: readonly Edition[] = [
     author: 'Автор будет объявлен',
     price: 'Цена будет объявлена',
     audienceLine: 'Описание выпуска будет добавлено',
+    audiencePrompt: 'Для будущего читателя',
+    run: 'Скоро будет доступно',
     curatorText: 'Текст куратора будет добавлен',
     assetPaths: renderAssets,
     isCurrent: false,

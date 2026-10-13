@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 const links = [
   { to: '/collection', label: 'Коллекция' },
   { to: '/edition/001', label: 'Выпуск №001' },
-  { to: '/#gift', label: 'В подарок' },
+  { to: '/#ritual', label: 'Как это работает' },
 ] as const
 
 export default function Header(): JSX.Element {
