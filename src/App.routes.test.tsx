@@ -33,7 +33,7 @@ describe('edition data', () => {
 describe('direct routes', () => {
   it('renders the home page', () => {
     renderAtPath('/')
-    expect(screen.getByRole('heading', { level: 1, name: 'КНИГА ДЛЯ ТЕБЯ' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Книга.Для тебя.' })).toBeInTheDocument()
   })
 
   it('renders the current edition for a direct URL', () => {

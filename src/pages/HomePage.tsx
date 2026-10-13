@@ -1,63 +1,61 @@
+import { useRef, useState, type JSX, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
-import HeroObject from '../components/HeroObject'
 import ArrowIcon from '../components/ArrowIcon'
-import KitExplorer from '../components/KitExplorer'
-import FirstEdition from '../components/FirstEdition'
-import { QuestionInvitation, ThreeQuestions, ReadingSteps, LastingEnvelope } from '../components/ReadingJourney'
+import HeroObject from '../components/HeroObject'
+import PreorderDialog from '../components/PreorderDialog'
 import { getEditionBySlug } from '../data/editions'
+import { unconfiguredReceiver } from '../features/preorder/unconfiguredReceiver'
 import styles from './HomePage.module.css'
 
-export default function HomePage() {
+const ritual = [
+  'Задайте себе три вопроса. Они останутся только у вас.',
+  'Откройте запечатанный конверт. Внутри три координаты: страница, строка, абзац.',
+  'Найдите эти места в книге и прочитайте.',
+]
+
+export default function HomePage(): JSX.Element {
   const edition = getEditionBySlug('001')!
-  return (
-    <>
-      <section id="hero" className={styles.hero} aria-labelledby="home-heading">
-        <div className={styles.heroVisual}>
-          <HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга, текстильный конверт, бумажный конверт и карточка с координатами" priority />
-        </div>
-        <div className={styles.heroCopy}>
-          <p className={styles.introduction}>Независимый книжный проект</p>
-          <h1 id="home-heading" aria-label="КНИГА ДЛЯ ТЕБЯ">Книга.<br />Для тебя.</h1>
-          <p className={styles.description}>Для того, кто ты сегодня.<br />Одна история. И кое-что личное внутри.</p>
-          <Link className={styles.button} to="/edition/001">Смотреть выпуск №001 <ArrowIcon /></Link>
-          <div className={styles.release}><p>№001 · 4 900 ₽</p><span>СКОРО БУДЕТ ДОСТУПНО</span></div>
-        </div>
-        <div className={styles.heroFoot}><span>Книга, два конверта и координаты</span><Link to="/#inside">Рассмотреть ближе <ArrowIcon direction="down" /></Link></div>
-      </section>
+  const [formOpen, setFormOpen] = useState(false)
+  const opener = useRef<HTMLElement>(null)
+  function openForm(event: MouseEvent<HTMLButtonElement>) { opener.current = event.currentTarget; setFormOpen(true) }
 
-      <section id="idea" className={styles.statement} aria-label="Идея BOOKFORYOU">
-        <p>Идея BOOKFORYOU</p>
-        <div data-reveal=""><h2>Не всякую книгу<br />выбирают по названию.</h2><p>Книга приходит не с ответом, а в нужный момент. BOOKFORYOU начинается с человека — с того, что он переживает, ищет и о чём пока не говорит.</p></div>
-      </section>
+  return <>
+    <section id="release" className={styles.release} aria-labelledby="home-heading">
+      <div className={styles.releaseCopy}>
+        <p className={styles.brand}>BOOKFORYOU</p>
+        <p className={styles.kicker}>Книжный подарок для себя и близких</p>
+        <h1 id="home-heading">Книга.<br />Для тебя.</h1>
+        <p className={styles.lead}>Помните, как загадывают вопрос и открывают книгу наугад? Мы убрали «наугад».</p>
+        <p className={styles.detail}>Внутри книга под ваше состояние сегодня и запечатанный конверт: три места в тексте, выбранные вручную для этого экземпляра.</p>
+        <details className={styles.audience}><summary>{edition.audiencePrompt}<span aria-hidden="true">⌄</span></summary><p>Это выпуск о собственном пути — для момента, когда хочется услышать себя яснее.</p></details>
+        <p className={styles.meta}>{edition.number} · {edition.author}, «{edition.title}» · {edition.run}</p>
+        <button className={styles.primaryButton} type="button" onClick={openForm}>Заказать · {edition.price}<ArrowIcon /></button>
+      </div>
+      <div className={styles.releasePhoto}><HeroObject asset={edition.assetPaths.hero} alt="Комплект BOOKFORYOU: книга и два конверта" priority /></div>
+    </section>
 
-      <QuestionInvitation edition={edition} />
-      <ThreeQuestions edition={edition} />
-      <ReadingSteps />
-      <KitExplorer edition={edition} />
-      <LastingEnvelope edition={edition} />
+    <section id="ritual" className={styles.ritual} aria-labelledby="ritual-heading">
+      <div className={styles.ritualPhoto}><HeroObject asset={edition.assetPaths.coordinatesCard} alt="Карточка BOOKFORYOU с тремя вопросами" /></div>
+      <div className={styles.ritualCopy}>
+        <p className={styles.kicker}>Внутри: книга, текстильный конверт, запечатанный конверт с координатами.</p>
+        <h2 id="ritual-heading">Три вопроса.<br />Одна книга.</h2>
+        <ol>{ritual.map((step, index) => <li key={step}><span>0{index + 1}</span><p>{step}</p></li>)}</ol>
+        <p className={styles.note}>Координаты я выбираю сама для каждого экземпляра. Двух одинаковых конвертов нет.</p>
+        <div className={styles.how}><h3>Как открыть</h3><p><b>01.</b> Задайте вопрос. Себе, тихо.</p><p><b>02.</b> Вскройте конверт.</p><p><b>03.</b> Откройте книгу на указанной странице и прочитайте.</p></div>
+      </div>
+    </section>
 
-      <section id="gift" className={styles.gift} aria-label="Книга, которую проще передать, чем объяснить">
-        <div className={styles.giftImage}><HeroObject asset={edition.assetPaths.textileEnvelope} alt="Бордовый текстильный конверт для книги BOOKFORYOU" /></div>
-        <div className={styles.giftCopy} data-reveal="">
-          <p>BOOKFORYOU для другого</p>
-          <h2>Книга, которую проще передать, чем объяснить</h2>
-          <p className={styles.giftStatement}>Иногда книгу легче подарить, чем сказать.</p>
-          <p>Книга и запечатанный конверт — личное послание. Дальше остаются только человек и история.</p>
-          <Link className={styles.textLink} to="/edition/001">Посмотреть комплект <ArrowIcon /></Link>
-        </div>
-      </section>
-
-      <section id="curator" className={styles.curator} aria-labelledby="curator-heading">
-        <div><p>Редакционный выбор</p><h2 id="curator-heading">Кто выбирает книги</h2><p className={styles.signature}>Рита Ленских</p></div>
-        <div data-reveal=""><blockquote>«Я много лет занималась кастингом в кино — искала человека для истории. BOOKFORYOU в каком-то смысле продолжает эту работу. Только теперь я ищу историю для человека».</blockquote><h3>Почему эта книга здесь</h3><p>Почему «{edition.title}» открывает коллекцию — об этом Рита расскажет в авторском тексте к выпуску.</p></div>
-      </section>
-
-      <FirstEdition edition={edition} />
-
-      <section id="home-collection" className={styles.collection} aria-labelledby="home-collection-heading">
-        <div data-reveal=""><p>Коллекция BOOKFORYOU</p><h2 id="home-collection-heading">История начинается<br />с первого выпуска.</h2><Link className={styles.button} to="/collection">Смотреть коллекцию <ArrowIcon /></Link></div>
-        <div className={styles.issueNumber} aria-hidden="true">001</div>
-      </section>
-    </>
-  )
+    <section id="curator-close" className={styles.close} aria-labelledby="curator-heading">
+      <div className={styles.curatorPhoto}><HeroObject asset={edition.assetPaths.textileEnvelope} alt="Текстильный конверт BOOKFORYOU" /></div>
+      <div className={styles.closeCopy}>
+        <p className={styles.kicker}>Кто выбирает</p>
+        <h2 id="curator-heading">Рита Ленских</h2>
+        <blockquote>«Я много лет занималась кастингом в кино: искала человека для истории. Теперь я ищу историю для человека».</blockquote>
+        <p className={styles.closingLine}>Иногда книга знает больше чем мы сами</p>
+        <button className={styles.secondaryButton} type="button" onClick={openForm}>Выбрать выпуск №001<ArrowIcon /></button>
+        <div className={styles.links}><span>Telegram</span><Link to="/legal/requisites">Реквизиты ИП</Link><Link to="/legal/terms">Оферта</Link><Link to="/legal/privacy">Политика данных</Link></div>
+      </div>
+    </section>
+    <PreorderDialog open={formOpen} opener={opener.current} onClose={() => setFormOpen(false)} receiver={unconfiguredReceiver} />
+  </>
 }

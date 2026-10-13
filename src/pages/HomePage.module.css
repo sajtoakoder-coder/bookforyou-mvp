@@ -1,78 +1,50 @@
-.hero { position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: space-between; min-height: max(52rem, calc(100vw * 1536 / 2752 + 4.75rem)); padding: clamp(5rem, 8vw, 9rem) 5vw 0; overflow: hidden; background: var(--ink-wine); color: var(--text-light); }
-.heroVisual { position: absolute; z-index: -1; inset: 0 0 4.75rem; }
-.heroVisual figure, .heroVisual img { width: 100%; height: 100%; }
-.heroVisual img { object-fit: cover; object-position: 68% center; }
-.heroCopy { position: relative; width: 45%; padding-bottom: 4.75rem; }
-.introduction { margin-bottom: 2rem; font-size: .8125rem; color: var(--text-muted-light); }
-.hero h1 { margin: 0 0 2rem; font-family: var(--font-display); font-size: clamp(5.5rem, 8.5vw, 9.5rem); font-weight: 500; line-height: .98; letter-spacing: -.03em; }
-.description { max-width: 32ch; margin-bottom: 2.25rem; font-size: 1rem; line-height: 1.7; color: var(--paper); }
-.button { display: inline-flex; justify-content: space-between; gap: 2.5rem; padding: .95rem 1.2rem; min-height: 3.25rem; background: var(--paper); color: var(--wine); font-size: .875rem; font-weight: 600; text-decoration: none; transition: background 180ms, transform 180ms; }
-.button:hover { background: var(--paper-raised); transform: translateY(-2px); }
-.button:active { transform: translateY(0); }
-.release { margin-top: 1.75rem; font-size: .8125rem; font-variant-numeric: tabular-nums; }
-.release p { margin-bottom: .5rem; }
-.release span { font-size: .75rem; color: var(--text-muted-light); }
-.heroFoot { position: relative; display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.75rem; margin-inline: -5vw; padding: .75rem 5vw; background: var(--ink-wine); border-top: 1px solid var(--light-rule); font-size: .8125rem; color: var(--paper); }
-.heroFoot a { color: inherit; text-decoration: none; gap: 1.5rem; }
-.statement, .curator { display: grid; grid-template-columns: 1fr 2fr; gap: 6vw; padding: clamp(6rem, 9vw, 9rem) 5vw; background: var(--paper); }
-.statement > div, .curator > div, .giftCopy { min-width: 0; overflow-wrap: anywhere; }
-.statement > p, .curator > div > p:first-child, .collection > div > p:first-child { font-size: .8125rem; }
-.statement h2 { margin-bottom: 2.5rem; font-size: clamp(3rem, 4.7vw, 5.5rem); font-weight: 500; line-height: 1.1; }
-.statement div > p { max-width: 49ch; font-size: 1rem; line-height: 1.75; }
-.gift { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: radial-gradient(ellipse at top right, var(--wine-lit) 0, var(--wine-deep) 70%, var(--ink-wine) 100%); color: var(--paper); }
-.giftImage { position: relative; min-width: 0; min-height: 24rem; overflow: hidden; background: var(--ink-wine); }
-.giftImage figure { position: absolute; inset: 0; width: 100%; height: 100%; }
-.giftImage img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
-.giftCopy { padding: 6.5rem 5vw; }
-.giftCopy > p:first-child { margin-bottom: 2rem; font-size: .8125rem; }
-.gift h2 { max-width: 14ch; margin-bottom: 2.25rem; font-size: clamp(2.75rem, 4.2vw, 4.5rem); font-weight: 500; line-height: 1.12; }
-.giftCopy p { max-width: 39ch; line-height: 1.75; }
-.giftStatement { font-weight: 600; }
-.textLink { justify-content: space-between; gap: 2rem; margin-top: 1rem; padding-block: .6rem; border-bottom: 1px solid currentColor; color: inherit; font-size: .875rem; text-decoration: none; }
-.curator { background: var(--paper-raised); }
-.curator h2 { max-width: 10ch; font-size: clamp(2.8rem, 3.8vw, 4.5rem); font-weight: 500; }
-.signature { font-size: .875rem; }
-.curator blockquote { max-width: 33ch; margin: 0 0 3rem; font-family: var(--font-display); font-size: clamp(1.8rem, 2.5vw, 2.9rem); line-height: 1.35; }
-.curator h3 { font-family: var(--font-body); font-size: .875rem; font-weight: 600; }
-.curator div > p:last-child { max-width: 53ch; }
-.collection { display: flex; justify-content: space-between; align-items: end; gap: 3rem; padding: 7rem 5vw; background: radial-gradient(ellipse at 80% 25%, var(--wine-lit) 0, var(--wine-deep) 70%, var(--ink-wine) 100%); color: var(--paper); }
-.collection h2 { margin-bottom: 2rem; font-size: clamp(3rem, 4.8vw, 5.5rem); font-weight: 500; line-height: 1.04; }
-.issueNumber { font-family: var(--font-display); font-size: clamp(8rem, 20vw, 20rem); font-variant-numeric: tabular-nums; line-height: .8; color: var(--paper); opacity: .45; }
-@media (min-width: 1600px) { .heroCopy { width: 40%; } }
-@media (max-width: 900px) { .hero { padding-top: 4rem; } .hero h1 { font-size: clamp(4rem, 10vw, 7rem); } }
-@media (max-width: 900px) {
-  .heroFoot { border-top: 1px solid var(--light-rule); }
-  .gift { grid-template-columns: 1fr; }
-  /* The keepsake chapter already shows this exact photograph on mobile. */
-  .giftImage { display: none; }
-  .giftCopy { padding: 4rem 5vw; }
-}
-@media (max-width: 600px) {
-  .hero { min-height: 0; padding: 2.75rem 1.5rem 0; }
-  .hero h1 { font-size: clamp(4.5rem, 19vw, 6rem); }
-  .introduction { margin-bottom: 1.5rem; }
-  .description { max-width: none; }
-  .release { margin-top: 1.25rem; }
-  .heroFoot { margin-inline: -1.5rem; padding-inline: 1.5rem; }
-  .heroFoot > span { display: none; }
-  .heroFoot a { justify-content: space-between; width: 100%; }
-  .statement, .curator { grid-template-columns: 1fr; padding: 4.5rem 1.5rem; gap: 1.75rem; }
-  .statement h2 { font-size: 2.8rem; }
-  .gift { grid-template-columns: 1fr; }
-  .curator h2 { max-width: none; }
-  .collection { padding: 4.5rem 1.5rem; flex-direction: column; align-items: stretch; gap: 3.5rem; }
-  .issueNumber { align-self: end; font-size: 9rem; }
-}
-@media (max-width: 900px) {
-  .hero { min-height: 0; }
-  .heroCopy { order: 0; width: 100%; padding-bottom: 2rem; }
-  .heroVisual { order: 1; position: relative; z-index: 0; inset: auto; height: clamp(20rem, 75vw, 36rem); margin-inline: -5vw; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 2rem); mask-image: linear-gradient(to bottom, transparent, #000 2rem); }
-  .heroVisual img { object-position: right center; }
-  .heroFoot { order: 2; }
-  .button, .textLink { align-items: center; min-height: 44px; }
-}
-@media (max-width: 600px) {
-  .heroVisual { margin-inline: -1.5rem; }
-  .giftCopy { padding: 3.5rem 1.5rem 4rem; }
-}
-@media (prefers-reduced-motion: no-preference) { .heroCopy { animation: enter var(--motion-reveal) var(--ease-out) both; } @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } } }
+.release, .ritual, .close { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); min-height: min(49rem, calc(100svh - 4.75rem)); overflow: hidden; }
+.release { background: var(--ink-wine); color: var(--text-light); }
+.releaseCopy, .ritualCopy, .closeCopy { align-self: center; padding: clamp(4.5rem, 8vw, 8rem) clamp(1.5rem, 5vw, 7rem); }
+.brand, .kicker { font-size: .75rem; line-height: 1.5; }
+.brand { margin-bottom: clamp(3rem, 7vh, 6rem); font-weight: 700; letter-spacing: .04em; }
+.kicker { max-width: 52ch; margin-bottom: 1.75rem; color: var(--text-muted-light); }
+.release h1, .ritual h2, .close h2 { margin-bottom: 2rem; font-size: clamp(4.3rem, 7.3vw, 8.3rem); font-weight: 500; line-height: .9; }
+.release h1 { max-width: 8ch; }
+.lead { max-width: 38ch; margin-bottom: 1rem; font-family: var(--font-display); font-size: clamp(1.45rem, 2vw, 2rem); line-height: 1.2; }
+.detail { max-width: 48ch; margin-bottom: 2rem; line-height: 1.7; color: var(--text-muted-light); }
+.audience { max-width: 34rem; margin: 0 0 1.25rem; border-block: 1px solid var(--light-rule); }
+.audience summary { display: flex; min-height: 2.75rem; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; font-size: .875rem; list-style: none; }
+.audience summary::-webkit-details-marker { display: none; }
+.audience summary span { font-size: 1.25rem; transition: transform var(--motion-fast); }
+.audience[open] summary span { transform: rotate(180deg); }
+.audience p { max-width: 40ch; padding-bottom: 1rem; color: var(--text-muted-light); font-size: .875rem; line-height: 1.6; }
+.meta { margin-bottom: 1.25rem; font-size: .8125rem; color: var(--paper); }
+.primaryButton, .secondaryButton { display: inline-flex; min-height: 3rem; align-items: center; justify-content: space-between; gap: 2rem; border: 1px solid transparent; padding: .75rem 1rem; cursor: pointer; font-weight: 700; text-align: left; transition: transform var(--motion-fast), background var(--motion-fast); }
+.primaryButton { background: var(--paper); color: var(--wine); }
+.secondaryButton { background: transparent; border-color: currentColor; color: inherit; }
+.primaryButton:hover, .secondaryButton:hover { transform: translateY(-2px); }
+.releasePhoto, .ritualPhoto, .curatorPhoto { min-width: 0; min-height: 24rem; }
+.releasePhoto figure, .ritualPhoto figure, .curatorPhoto figure, .releasePhoto img, .ritualPhoto img, .curatorPhoto img { width: 100%; height: 100%; }
+.releasePhoto img { object-fit: cover; object-position: 68% center; }
+.ritual { border-top: 1px solid var(--light-rule); background: var(--wine-deep); color: var(--text-light); }
+.ritualPhoto { grid-column: 2; grid-row: 1; margin: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 5vw, 6rem) clamp(2rem, 5vw, 5rem) 0; }
+.ritualPhoto img { object-fit: cover; object-position: center; }
+.ritualCopy { grid-column: 1; grid-row: 1; }
+.ritual h2 { font-size: clamp(3.4rem, 5.4vw, 6.25rem); }
+.ritual ol { display: grid; gap: 0; margin: 0 0 1.5rem; padding: 0; list-style: none; border-top: 1px solid var(--light-rule); }
+.ritual li { display: grid; grid-template-columns: 2.5rem 1fr; gap: .75rem; padding: 1rem 0; border-bottom: 1px solid var(--light-rule); }
+.ritual li span { color: var(--brass); font-size: .75rem; }
+.ritual li p { margin: 0; line-height: 1.55; }
+.note { max-width: 48ch; margin: 1.5rem 0 2.5rem; color: var(--text-muted-light); font-size: .875rem; line-height: 1.65; }
+.how { max-width: 34rem; padding-top: 1.25rem; border-top: 1px solid var(--light-rule); }
+.how h3 { margin-bottom: 1rem; font-family: var(--font-body); font-size: .8125rem; letter-spacing: .03em; }
+.how p { display: grid; grid-template-columns: 2.5rem 1fr; margin-bottom: .65rem; font-size: .875rem; }
+.how b { color: var(--brass); font-weight: 500; }
+.close { border-top: 1px solid var(--light-rule); background: var(--paper); color: var(--text-dark); }
+.curatorPhoto { grid-row: 1; margin: clamp(2rem, 5vw, 5rem) 0 clamp(2rem, 5vw, 5rem) clamp(1.5rem, 5vw, 6rem); }
+.curatorPhoto img { object-fit: cover; object-position: 56% center; }
+.closeCopy { grid-column: 2; grid-row: 1; }
+.close .kicker { color: var(--copper); }
+.close h2 { font-size: clamp(3.7rem, 5.4vw, 6.25rem); }
+.close blockquote { max-width: 25ch; margin: 0 0 2.5rem; font-family: var(--font-display); font-size: clamp(1.7rem, 2.4vw, 2.7rem); line-height: 1.24; }
+.closingLine { max-width: 29ch; margin-bottom: 2rem; font-size: 1.05rem; }
+.links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; max-width: 36rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid rgb(33 22 16 / .2); color: var(--copper); font-size: .75rem; }
+.links a { display: inline; min-height: 0; color: inherit; }
+@media (max-width: 800px) { .release, .ritual, .close { display: flex; min-height: 0; flex-direction: column; } .releaseCopy, .ritualCopy, .closeCopy { padding: 4.5rem 1.5rem; } .release h1, .ritual h2, .close h2 { font-size: clamp(3.75rem, 18vw, 5.4rem); } .brand { margin-bottom: 3.5rem; } .releasePhoto, .ritualPhoto, .curatorPhoto { min-height: 0; height: clamp(20rem, 105vw, 34rem); margin: 0; } .releasePhoto { order: 2; } .releaseCopy { order: 1; } .ritualPhoto { order: 2; } .ritualCopy { order: 1; } .curatorPhoto { order: 2; } .closeCopy { order: 1; } .releasePhoto img { object-position: 67% center; } .ritualPhoto img { object-position: 48% center; } .curatorPhoto img { object-position: 55% center; } .releasePhoto, .ritualPhoto, .curatorPhoto { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent); mask-image: linear-gradient(to bottom, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent); } .ritualPhoto { margin-top: -1rem; } .ritualCopy { padding-bottom: 2rem; } .closeCopy { padding-bottom: 2rem; } .links { margin-top: 2.5rem; } }
+@media (max-width: 420px) { .releaseCopy, .ritualCopy, .closeCopy { padding-inline: 1.25rem; } .release h1 { font-size: clamp(3.6rem, 17vw, 4.7rem); } .lead { font-size: 1.35rem; } .primaryButton, .secondaryButton { width: 100%; } }

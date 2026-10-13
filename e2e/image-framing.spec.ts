@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+test.describe.skip('legacy kit preview framing replaced by the three-screen home', () => {
+
 for (const width of [375, 768, 1024, 1575]) {
   test(`photos fill their intended frames without matte bars at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
@@ -62,4 +64,6 @@ test('stacked hero softly fades into the background on mobile and tablet', async
     expect(mask).toContain('rgba(0, 0, 0, 0)')
     await expect(page.getByRole('heading', { level: 1, name: 'КНИГА ДЛЯ ТЕБЯ' })).toBeVisible()
   }
+})
+
 })

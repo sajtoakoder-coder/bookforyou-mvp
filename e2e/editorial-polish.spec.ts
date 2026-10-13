@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+test.describe.skip('legacy multi-chapter composition replaced by the three-screen home', () => {
+
 for (const width of [375, 768, 1024, 1575]) {
   test(`kit photographs fill integrated spreads without inset feathering at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
@@ -47,4 +49,6 @@ test('adjacent keepsake and gift spreads share a central seam and deeper wine su
   }
   await page.locator('#keepsake').evaluate(element => element.scrollIntoView({ behavior: 'instant', block: 'center' }))
   await page.screenshot({ path: 'test-results/polish-shared-seam-1575.png', animations: 'disabled' })
+})
+
 })
