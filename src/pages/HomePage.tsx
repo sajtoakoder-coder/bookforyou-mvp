@@ -7,15 +7,18 @@ import { getEditionBySlug } from '../data/editions'
 import { unconfiguredReceiver } from '../features/preorder/unconfiguredReceiver'
 import styles from './HomePage.module.css'
 
-const ritual = [
-  'Задайте себе три вопроса. Они останутся только у вас.',
-  'Откройте запечатанный конверт. Внутри три координаты: страница, строка, абзац.',
-  'Найдите эти места в книге и прочитайте.',
+const audienceOptions = [
+  'Для того, кто хочет реализоваться',
+  'Для того, кто выбирает своё направление',
+  'Для того, кто переживает перемены',
+  'Для того, кто хочет вернуться к себе',
+  'Для того, кому нужна пауза и ясность',
 ]
 
 export default function HomePage(): JSX.Element {
   const edition = getEditionBySlug('001')!
   const [formOpen, setFormOpen] = useState(false)
+  const [audience, setAudience] = useState(audienceOptions[0])
   const opener = useRef<HTMLElement>(null)
   function openForm(event: MouseEvent<HTMLButtonElement>) { opener.current = event.currentTarget; setFormOpen(true) }
 
@@ -23,11 +26,11 @@ export default function HomePage(): JSX.Element {
     <section id="release" className={styles.release} aria-labelledby="home-heading">
       <div className={styles.releaseCopy}>
         <p className={styles.brand}>BOOKFORYOU</p>
-        <p className={styles.kicker}>Книжный подарок для себя и близких</p>
-        <h1 id="home-heading">Книга.<br />Для тебя.</h1>
+        <p className={styles.introduction}>Книжный подарок<br />для себя и близких</p>
+        <h1 id="home-heading">Книга, для того,<br />кто вы сегодня.</h1>
         <p className={styles.lead}>Помните, как загадывают вопрос и открывают книгу наугад? Мы убрали «наугад».</p>
         <p className={styles.detail}>Внутри книга под ваше состояние сегодня и запечатанный конверт: три места в тексте, выбранные вручную для этого экземпляра.</p>
-        <details className={styles.audience}><summary>{edition.audiencePrompt}<span aria-hidden="true">⌄</span></summary><p>Это выпуск о собственном пути — для момента, когда хочется услышать себя яснее.</p></details>
+        <details className={styles.audience}><summary>{audience}<span aria-hidden="true">⌄</span></summary><div className={styles.audienceOptions}>{audienceOptions.map(option => <button key={option} type="button" aria-pressed={audience === option} onClick={(event) => { setAudience(option); event.currentTarget.closest('details')?.removeAttribute('open') }}>{option}</button>)}</div></details>
         <p className={styles.meta}>{edition.number} · {edition.author}, «{edition.title}» · {edition.run}</p>
         <button className={styles.primaryButton} type="button" onClick={openForm}>Заказать · {edition.price}<ArrowIcon /></button>
       </div>
@@ -39,7 +42,6 @@ export default function HomePage(): JSX.Element {
       <div className={styles.ritualCopy}>
         <p className={styles.kicker}>Внутри: книга, текстильный конверт, запечатанный конверт с координатами.</p>
         <h2 id="ritual-heading">Три вопроса.<br />Одна книга.</h2>
-        <ol>{ritual.map((step, index) => <li key={step}><span>0{index + 1}</span><p>{step}</p></li>)}</ol>
         <p className={styles.note}>Координаты я выбираю сама для каждого экземпляра. Двух одинаковых конвертов нет.</p>
         <div className={styles.how}><h3>Как открыть</h3><p><b>01.</b> Задайте вопрос. Себе, тихо.</p><p><b>02.</b> Вскройте конверт.</p><p><b>03.</b> Откройте книгу на указанной странице и прочитайте.</p></div>
       </div>
