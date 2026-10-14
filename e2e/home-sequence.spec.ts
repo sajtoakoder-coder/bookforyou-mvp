@@ -9,7 +9,8 @@ for (const width of [320, 375, 768, 1440]) {
     await page.goto('/')
     await page.evaluate(() => document.fonts.ready)
     expect(await page.locator('main > section').evaluateAll(sections => sections.map(section => section.id))).toEqual(screenIds)
-    await expect(page.locator('#ritual li')).toHaveCount(3)
+    await expect(page.locator('#ritual h3', { hasText: 'Как открыть' })).toBeVisible()
+    await expect(page.locator('#ritual li')).toHaveCount(0)
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     for (const id of screenIds) {
       const section = page.locator(`#${id}`)
